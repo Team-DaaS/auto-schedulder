@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 
-function Roster() {
+const Roster = () => {
   return (
     <div>
       <p>Roster</p>
     </div>
-  )
-}
+  );
+};
 
-export default Roster
+export default Roster;

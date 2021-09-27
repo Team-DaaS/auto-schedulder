@@ -1,26 +1,56 @@
-import React from 'react'
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+import React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 
-export const NavBar = () => {
+const NavBar = () => {
+  const button = {
+    fontWeight: "bold",
+    marginLeft: "30px",
+  };
   return (
-    <div>
-      <AppBar position="static" elevation={0} color="secondary">
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static" elevation={0}>
         <Toolbar>
-          <Typography variant="h3" component="h1" sx={{flexGrow: 1, textAlign: 'left'}}>
+          <Typography
+            component="h1"
+            variant="h5"
+            sx={{ flexGrow: 1, textAlign: "left" }}
+          >
             Soccer Schedule
           </Typography>
-          <Button sx={{color:'white'}}>
-            Login
-          </Button>
+          <Box>
+            <Button sx={button} component={Link} to="/" color="inherit">
+              Home
+            </Button>
+            <Button sx={button} component={Link} to="/about" color="inherit">
+              About
+            </Button>
+            <Button
+              sx={button}
+              component={Link}
+              to="/scheduler"
+              color="inherit"
+            >
+              Scheduler
+            </Button>
+            <Button sx={button} component={Link} to="/roster" color="inherit">
+              Roster
+            </Button>
+            <Button sx={button} component={Link} to="/import" color="inherit">
+              Import
+            </Button>
+            <Button sx={button} component={Link} to="/contact" color="inherit">
+              Contact
+            </Button>
+          </Box>
         </Toolbar>
       </AppBar>
-    </div>
-  )
-}
+    </Box>
+  );
+};
 
+export default NavBar;

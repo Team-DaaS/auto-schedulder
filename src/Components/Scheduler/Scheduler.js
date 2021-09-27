@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 
-function Scheduler() {
+const Scheduler = () => {
   return (
     <div>
       <p>Scheduler</p>
     </div>
-  )
-}
+  );
+};
 
-export default Scheduler
+export default Scheduler;

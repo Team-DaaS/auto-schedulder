@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 
-function Import() {
+const Import = () => {
   return (
     <div>
       <p>Import</p>
     </div>
-  )
-}
+  );
+};
 
-export default Import
+export default Import;
