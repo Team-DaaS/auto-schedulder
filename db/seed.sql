@@ -1,6 +1,6 @@
-drop table if exists users;
+drop table if exists league;
 
-create table users (
+create table league (
     id serial primary key,
     password varchar(200) not null,
     email varchar(100) not null,
