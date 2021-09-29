@@ -4,7 +4,7 @@ const massive = require("massive");
 const session = require("express-session");
 
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env;
-
+const authCtrl = require("./Controller/authCtrl");
 const app = express();
 
 app.use(express.json());
@@ -30,3 +30,7 @@ massive({
       );
   })
   .catch((err) => console.log(err));
+
+app.post("/api/register", authCtrl.register);
+app.post("/api/login", authCtrl.login);
+app.delete("/api/logout", authCtrl.logout);
