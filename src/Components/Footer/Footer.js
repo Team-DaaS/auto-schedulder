@@ -9,13 +9,13 @@ export const Footer = () => {
         <Box p={{ xs: 4, md: 6, lg: 6 }}>
           <Grid container>
             <Grid item xs={12} md={3}>
-              hola
+              Column 1
             </Grid>
             <Grid item xs={12} md={3}>
-              hola
+              Column 2
             </Grid>
             <Grid item xs={12} md={3}>
-              hola
+              Column 3
             </Grid>
           </Grid>
         </Box>

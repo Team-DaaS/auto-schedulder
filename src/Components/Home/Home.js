@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <Box>
       <Container>
-        <Box p={4}>lkljlkjlkjlkj</Box>
+        <Box p={4}>Home</Box>
       </Container>
     </Box>
   );
