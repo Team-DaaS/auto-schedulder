@@ -1,10 +1,14 @@
 import React from "react";
+import { Box } from "@mui/system";
+import { Container } from "@mui/material";
 
 const About = () => {
   return (
-    <div>
-      <p>About</p>
-    </div>
+    <Box>
+      <Container>
+        <Box p={4}>About</Box>
+      </Container>
+    </Box>
   );
 };
 

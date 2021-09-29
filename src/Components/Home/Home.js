@@ -1,10 +1,14 @@
 import React from "react";
+import { Box } from "@mui/system";
+import { Container } from "@mui/material";
 
 const Home = () => {
   return (
-    <div>
-      <p>Home page</p>
-    </div>
+    <Box>
+      <Container>
+        <Box p={4}>lkljlkjlkjlkj</Box>
+      </Container>
+    </Box>
   );
 };
 

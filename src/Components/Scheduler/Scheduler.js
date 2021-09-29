@@ -1,10 +1,14 @@
 import React from "react";
+import { Box } from "@mui/system";
+import { Container } from "@mui/material";
 
 const Scheduler = () => {
   return (
-    <div>
-      <p>Scheduler</p>
-    </div>
+    <Box>
+      <Container>
+        <Box p={4}>Scheduler</Box>
+      </Container>
+    </Box>
   );
 };
 

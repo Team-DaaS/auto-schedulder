@@ -1,13 +1,17 @@
 import "./App.css";
 import NavBar from "./Components/NavBar/NavBar";
 import routes from "./routes";
+import { Footer } from "./Components/Footer/Footer";
+import { Container } from "@mui/material";
+import { Box } from "@mui/system";
 
 function App() {
   return (
-    <div className="App">
+    <Box>
       <NavBar />
       {routes}
-    </div>
+      <Footer />
+    </Box>
   );
 }
 
