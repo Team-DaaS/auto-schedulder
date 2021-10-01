@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+
+.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 2000;
+}
+
+.react-calendar-timeline .rct-dateHeader-primary {
+  background-color: rgb(77, 81, 83)!important;
+}
+
+.react-calendar-timeline .rct-header-root{
+  background-color: rgb(77, 81, 83)!important;
+  text-align: center;
+}
+
+.echo{
+  background-color: brown;
+}
