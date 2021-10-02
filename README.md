@@ -1,8 +1,3 @@
-
-
-
-
-
 -- START example iterator logic
 
 bracket example:

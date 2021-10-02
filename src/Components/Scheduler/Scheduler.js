@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import { Box } from "@mui/system";
+import { Container } from "@mui/material";
 import moment from "moment";
-
 
 import Timeline, {
     TimelineHeaders,
@@ -120,7 +121,7 @@ export default class App extends Component {
                 groups={groups}
                 items={items}
                 keys={keys}
-                sidebarContent={<div>Above The</div>}
+                sidebarContent={<div>null</div>}
                 itemsSorted
                 itemTouchSendsClick={false}
                 stackItems
@@ -136,11 +137,11 @@ export default class App extends Component {
                 <TimelineHeaders className="sticky">
                     <SidebarHeader>
                         {({ getRootProps }) => {
-                            return <div {...getRootProps()}>Auto Scheduler 2000</div>;
+                            return <div className="auto-scheduler-header" {...getRootProps()}>Auto Scheduler 5000</div>;
                         }}
                     </SidebarHeader>
                     <DateHeader unit="primaryHeader" />
-                    <DateHeader unit="primaryHeader" />
+                    <DateHeader />
                 </TimelineHeaders>
             </Timeline>
         );
