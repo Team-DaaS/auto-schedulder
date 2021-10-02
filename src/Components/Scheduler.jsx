@@ -8,7 +8,6 @@ import Timeline, {
     DateHeader
 } from "react-calendar-timeline/lib";
 
-import generateFakeData from "./generate-fake-data";
 
 var keys = {
     groupIdKey: "id",
@@ -41,15 +40,10 @@ const endMatchB = moment("2021-10-02 10:00");
 const endDateB = endMatchB.format('YYYY/MM/DD, HH:mm');
 const endValueB = moment(endDateB)
 
-//Example C
-// const endValue = moment(startDate + faker.random.number({ min: 2, max: 20 }) * 15 * 60 * 1000).valueOf()
-
 export default class App extends Component {
     constructor(props) {
         super(props);
-
-        // const { groups, items } = generateFakeData(6);
-
+        
         const defaultTimeStart = moment("2021-10-02 08:00")
             .startOf("hour")
             .toDate();
@@ -146,7 +140,7 @@ export default class App extends Component {
                         }}
                     </SidebarHeader>
                     <DateHeader unit="primaryHeader" />
-                    <DateHeader />
+                    <DateHeader unit="primaryHeader" />
                 </TimelineHeaders>
             </Timeline>
         );
