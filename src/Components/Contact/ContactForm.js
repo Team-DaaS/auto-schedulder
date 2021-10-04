@@ -25,12 +25,6 @@ const ContactForm = () => {
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography color="textPrimary" sx={{ mb: 1 }} variant="subtitle2">
-            Company Name*
-          </Typography>
-          <TextField fullWidth name="company" required variant="outlined" />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Typography color="textPrimary" sx={{ mb: 1 }} variant="subtitle2">
             Email *
           </Typography>
           <TextField
@@ -52,34 +46,6 @@ const ContactForm = () => {
             type="tel"
             variant="outlined"
           />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Typography color="textPrimary" sx={{ mb: 1 }} variant="subtitle2">
-            Company Size
-          </Typography>
-          <Select fullWidth variant="outlined">
-            <MenuItem value="10-20">1-10</MenuItem>
-            <MenuItem value="11-30">11-30</MenuItem>
-            <MenuItem value="31-50">31-50</MenuItem>
-          </Select>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Typography color="textPrimary" sx={{ mb: 1 }} variant="subtitle2">
-            Team
-          </Typography>
-          <Select fullWidth variant="outlined">
-            <MenuItem value="engineering">Engineering</MenuItem>
-            <MenuItem value="design">Design</MenuItem>
-          </Select>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography color="textPrimary" sx={{ mb: 1 }} variant="subtitle2">
-            Project Budget *
-          </Typography>
-          <Select fullWidth required variant="outlined">
-            <MenuItem value={20000}>$20,000+</MenuItem>
-            <MenuItem value={50000}>$50,000+</MenuItem>
-          </Select>
         </Grid>
         <Grid item xs={12}>
           <Typography color="textPrimary" sx={{ mb: 1 }} variant="subtitle2">
