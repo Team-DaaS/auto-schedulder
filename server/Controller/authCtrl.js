@@ -5,7 +5,7 @@ module.exports = {
     const db = req.app.get("db");
     const { league_name, email, password } = req.body;
     console.log(req.body);
-    const existingUser = await db.check_user({ email });
+    const existingUser = await db.Auth.check_user({ email });
     if (existingUser[0]) {
       return res.status(400).send("User with this email already exists");
     }
@@ -13,7 +13,7 @@ module.exports = {
     let salt = bcrypt.genSaltSync(5);
     const hash = await bcrypt.hashSync(password, salt);
 
-    const newUser = await db.register_user({
+    const newUser = await db.Auth.register_user({
       league_name: league_name,
       email: email,
       hash: hash,
