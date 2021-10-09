@@ -73,7 +73,7 @@ const ContactForm = () => {
           </Typography>
           <TextField
             fullWidth
-            name="name"
+            name="email"
             required
             variant="outlined"
             onChange={handleEmailChange}

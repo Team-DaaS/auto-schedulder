@@ -6,6 +6,7 @@ import Roster from "./Components/Roster/Roster";
 import Import from "./Components/Import/Import";
 import Contact from "./Components/Contact/Contact";
 import Register from "./Components/Register/Register";
+import Login from "./Components/Login/Login";
 
 export default (
   <Switch>
@@ -16,5 +17,6 @@ export default (
     <Route path="/import" component={Import} />
     <Route path="/contact" component={Contact} />
     <Route path="/register" component={Register} />
+    <Route path="/login" component={Login} />
   </Switch>
 );
