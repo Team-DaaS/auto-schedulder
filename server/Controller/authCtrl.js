@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs");
+const { response } = require("express");
 
 module.exports = {
   register: async (req, res) => {
@@ -51,25 +52,4 @@ module.exports = {
     req.session.destroy();
     return res.sendStatus(200);
   },
-  // try {
-  //   const db = req.app.get("db");
-  //   const { email, password } = req.body;
-  //   const selected = await db.auth.check_user({ email });
-  //   const user = selected[0];
-  //   if (user) {
-  //     const areEqual = await bcrypt.compare(password, user.password);
-  //     if (areEqual) {
-  //       req.session.user = user;
-  //       delete user.password;
-  //       res.status(200).send(req.session.user);
-  //       // console.log(req.session.user);
-  //     } else {
-  //       res.status(403).send("Invalid username or password.");
-  //     }
-  //   } else {
-  //     res.status(404).send("Username does not exist.");
-  //   }
-  // } catch (e) {
-  //   res.status(500).send(e);
-  // }
 };

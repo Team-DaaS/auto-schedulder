@@ -18,6 +18,8 @@ app.use(
   })
 );
 
+// app.use(middleware);
+
 massive({
   connectionString: CONNECTION_STRING,
   ssl: { rejectUnauthorized: false },
@@ -28,9 +30,11 @@ massive({
   })
   .catch((err) => console.log(err));
 
+//middleware
+
 app.post("/api/register", register);
-app.post("/api/login", login);
 app.delete("/api/logout", logout);
+app.post("/api/login", login);
 
 app.listen(SERVER_PORT, () =>
   console.log(`Server running on Port ${SERVER_PORT}`)
