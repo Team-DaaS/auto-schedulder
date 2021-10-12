@@ -58,38 +58,12 @@ const LoginForm = (props) => {
           }
         })
         .catch((e) => {
-          // setEmailError(true);
-          // setPasswordError(true);
+          setEmailError(true);
+          setPasswordError(true);
           console.log(e);
         });
     }
   };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   setUsernameError(false);
-  //   setPasswordError(false);
-  //   setAccessError(false);
-  //   if (authInfo.username === "") {
-  //     setUsernameError(true);
-  //   }
-  //   if (authInfo.password === "") {
-  //     setPasswordError(true);
-  //   }
-  //   if (authInfo.username && authInfo.password) {
-  //     // console.log(authInfo.username, authInfo.password);
-  //     axios
-  //       .post("/auth/login", authInfo)
-  //       .then((response) => {
-  //         dispatch(updateUsername(response.data.username));
-  //         dispatch(updateUserId(response.data.id));
-  //         props.history.push("/dashboard");
-  //       })
-  //       .catch(() => {
-  //         setAccessError(true);
-  //       });
-  //   }
-  // };
 
   return (
     <form noValidate onSubmit={handleSubmit}>
