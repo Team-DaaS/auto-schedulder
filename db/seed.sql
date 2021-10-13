@@ -31,10 +31,19 @@ create table players (
     player_id serial primary key,
     first_name varchar(100) not null,
     last_name varchar(100) not null,
-    family_id integer,
+    family_id integer references family(family_id)
     team_id integer references teams(team_id),
     birth_year integer,
     gender varchar(25) not null,
     email text
 );
 
+//create table family (   ////flip with player table 
+    //family_id serial primary key,
+   // address text,
+   // family_weight integer,
+    //player_id integer references players(player_id)
+)
+//create family record first and then players must have family_id to put into family table
+//populate family and player tables at the same time
+//talk to Nick about pulling excel info
