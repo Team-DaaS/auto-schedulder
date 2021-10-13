@@ -4,7 +4,7 @@ const massive = require("massive");
 const session = require("express-session");
 
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env;
-const { register, login, logout } = require("./Controller/authCtrl");
+const { register, login, logout, getUser } = require("./Controller/authCtrl");
 const app = express();
 
 app.use(express.json());
@@ -36,6 +36,8 @@ app.post("/api/register", register);
 app.delete("/api/logout", logout);
 app.post("/api/login", login);
 
-app.listen(SERVER_PORT, () =>
-  console.log(`Server running on Port ${SERVER_PORT}`)
-);
+//Logged in users
+app.get("/auth/user", getUser),
+  app.listen(SERVER_PORT, () =>
+    console.log(`Server running on Port ${SERVER_PORT}`)
+  );

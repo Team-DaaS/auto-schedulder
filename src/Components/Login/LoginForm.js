@@ -11,10 +11,13 @@ import {
 } from "@mui/material";
 import { Alert } from "@mui/material";
 import axios from "axios";
+import { updateUserId } from "../../Redux/reducer";
+import { useDispatch } from "react-redux";
 
 const LoginForm = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
   //Errors handlers
   const [emptyFields, setEmptyFields] = useState(false);
   const [emailError, setEmailError] = useState(false);
@@ -52,8 +55,7 @@ const LoginForm = (props) => {
             setPasswordError(true);
           } else {
             console.log(response.data);
-            // console.log("line56");
-            // this.props.login(response.data);
+            dispatch(updateUserId(response.data.id));
             props.history.push("/roster");
           }
         })
