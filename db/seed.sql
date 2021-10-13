@@ -25,6 +25,15 @@ create table teams (
     team_name varchar(100) not null
 );
 
+drop table if exists family;
+
+create table family (
+    family_id serial primary key,
+    address text,
+    family_weight integer,
+    player_id integer references players(player_id)
+);
+
 drop table if exists players;
 
 create table players (
@@ -38,12 +47,5 @@ create table players (
     email text
 );
 
-//create table family (   ////flip with player table 
-    //family_id serial primary key,
-   // address text,
-   // family_weight integer,
-    //player_id integer references players(player_id)
-)
-//create family record first and then players must have family_id to put into family table
-//populate family and player tables at the same time
-//talk to Nick about pulling excel info
+
+
