@@ -37,12 +37,6 @@ create table teams (
 
 drop table if exists family;
 
-create table family (
-    family_id serial primary key,
-    address text,
-    family_weight integer,
-    player_id integer references players(player_id)
-);
 
 drop table if exists players;
 
@@ -50,11 +44,13 @@ create table players (
     player_id serial primary key,
     first_name varchar(100) not null,
     last_name varchar(100) not null,
-    family_id integer references family(family_id)
+    family_id integer 
     team_id integer references teams(team_id),
     birth_year integer,
     gender varchar(25) not null,
-    email text
+    email text,
+
+family_weight integer
 );
 
 
