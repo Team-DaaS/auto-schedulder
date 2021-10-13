@@ -76,26 +76,39 @@ const NavBar = () => {
             <Button sx={button} component={Link} to="/about" color="inherit">
               About
             </Button>
-            <Button
-              sx={button}
-              component={Link}
-              to="/scheduler"
-              color="inherit"
-            >
-              Scheduler
-            </Button>
-            <Button sx={button} component={Link} to="/roster" color="inherit">
-              Roster
-            </Button>
-            <Button sx={button} component={Link} to="/import" color="inherit">
-              Import
-            </Button>
+            {userId ? (
+              <Button
+                sx={button}
+                component={Link}
+                to="/scheduler"
+                color="inherit"
+              >
+                Scheduler
+              </Button>
+            ) : null}
+            {userId ? (
+              <Button sx={button} component={Link} to="/roster" color="inherit">
+                Roster
+              </Button>
+            ) : null}
+            {userId ? (
+              <Button sx={button} component={Link} to="/import" color="inherit">
+                Import
+              </Button>
+            ) : null}
             <Button sx={button} component={Link} to="/contact" color="inherit">
               Contact
             </Button>
-            <Button sx={button} onClick={handleLogout} color="inherit">
-              Logout
-            </Button>
+            {userId ? (
+              <Button sx={button} onClick={handleLogout} color="inherit">
+                Logout
+              </Button>
+            ) : null}
+            {userId ? null : (
+              <Button sx={button} component={Link} to="/login" color="inherit">
+                Login
+              </Button>
+            )}
           </Box>
           <IconButton
             size="large"
