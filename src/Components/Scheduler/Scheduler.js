@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Box } from "@mui/system";
 import { Container } from "@mui/material";
 import moment from "moment";
+import { MapStateToProps } from "react-redux";
+import { connect } from "react-redux";
+import { Redirect } from "react-router";
 
 import Timeline, {
   TimelineHeaders,
@@ -40,7 +43,7 @@ const endMatchB = moment("2021-10-02 10:00");
 const endDateB = endMatchB.format("YYYY/MM/DD, HH:mm");
 const endValueB = moment(endDateB);
 
-export default class App extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
 
@@ -114,12 +117,17 @@ export default class App extends Component {
       items,
       defaultTimeStart,
       defaultTimeEnd,
+      userId: props.userId,
     };
+
+    // console.log(this.userId);
   }
 
   render() {
+    if (this.userId === 0 || !this.userId) {
+      return <Redirect to="/login" />;
+    }
     const { groups, items, defaultTimeStart, defaultTimeEnd } = this.state;
-
     return (
       <Timeline
         groups={groups}
@@ -155,3 +163,11 @@ export default class App extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    userId: state.userId,
+  };
+};
+
+export default connect(mapStateToProps)(App);
