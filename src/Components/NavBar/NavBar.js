@@ -48,6 +48,11 @@ const NavBar = () => {
     });
   };
 
+  const handleLogoutMobile = () => {
+    handleClose();
+    handleLogout();
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" elevation={0}>
@@ -160,30 +165,36 @@ const NavBar = () => {
             >
               ABOUT
             </MenuItem>
-            <MenuItem
-              onClick={handleClose}
-              sx={{ fontSize: "13px" }}
-              component={Link}
-              to="/scheduler"
-            >
-              SCHEDULER
-            </MenuItem>
-            <MenuItem
-              onClick={handleClose}
-              sx={{ fontSize: "13px" }}
-              component={Link}
-              to="/roster"
-            >
-              ROSTER
-            </MenuItem>
-            <MenuItem
-              onClick={handleClose}
-              sx={{ fontSize: "13px" }}
-              component={Link}
-              to="/import"
-            >
-              IMPORT
-            </MenuItem>
+            {userId ? (
+              <MenuItem
+                onClick={handleClose}
+                sx={{ fontSize: "13px" }}
+                component={Link}
+                to="/scheduler"
+              >
+                SCHEDULER
+              </MenuItem>
+            ) : null}
+            {userId ? (
+              <MenuItem
+                onClick={handleClose}
+                sx={{ fontSize: "13px" }}
+                component={Link}
+                to="/roster"
+              >
+                ROSTER
+              </MenuItem>
+            ) : null}
+            {userId ? (
+              <MenuItem
+                onClick={handleClose}
+                sx={{ fontSize: "13px" }}
+                component={Link}
+                to="/import"
+              >
+                IMPORT
+              </MenuItem>
+            ) : null}
             <MenuItem
               onClick={handleClose}
               sx={{ fontSize: "13px" }}
@@ -192,6 +203,21 @@ const NavBar = () => {
             >
               CONTACT
             </MenuItem>
+            {!userId ? (
+              <MenuItem
+                onClick={handleClose}
+                sx={{ fontSize: "13px" }}
+                component={Link}
+                to="/login"
+              >
+                LOGIN
+              </MenuItem>
+            ) : null}
+            {userId ? (
+              <MenuItem onClick={handleLogoutMobile} sx={{ fontSize: "13px" }}>
+                LOGOUT
+              </MenuItem>
+            ) : null}
           </Menu>
         </Toolbar>
       </AppBar>
