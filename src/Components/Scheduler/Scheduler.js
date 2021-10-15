@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Box } from "@mui/system";
 import { Container } from "@mui/material";
 import moment from "moment";
-import { MapStateToProps } from "react-redux";
+// import { MapStateToProps } from "react-redux";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 
@@ -118,13 +118,12 @@ class App extends Component {
       defaultTimeStart,
       defaultTimeEnd,
     };
-
-    if (props.userId === 0 || !props.userId) {
+    console.log(props.userId);
+  }
+  render() {
+    if (this.props.userId === 0 || !this.props.userId) {
       return <Redirect to="/login" />;
     }
-  }
-
-  render() {
     const { groups, items, defaultTimeStart, defaultTimeEnd } = this.state;
     return (
       <Timeline
