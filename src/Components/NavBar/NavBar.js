@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -7,17 +7,26 @@ import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import AccountCircle from "@mui/icons-material/AccountCircle";
+// import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import { useHistory } from "react-router";
+import { clearReduxState } from "../../Redux/reducer";
+// import { HistoryOutlined } from "@material-ui/icons";
 
 const NavBar = () => {
+  const userId = useSelector((reduxState) => reduxState.userId);
+  const dispatch = useDispatch();
+  let history = useHistory();
+
   const button = {
     fontWeight: "bold",
     marginLeft: "30px",
   };
 
-  const [auth, setAuth] = React.useState(true);
+  const [auth, setAuth] = useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleChange = (event) => {
@@ -30,6 +39,18 @@ const NavBar = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    axios.delete("/api/logout").then((res) => {
+      dispatch(clearReduxState());
+      history.push("/login");
+    });
+  };
+
+  const handleLogoutMobile = () => {
+    handleClose();
+    handleLogout();
   };
 
   return (
@@ -60,23 +81,39 @@ const NavBar = () => {
             <Button sx={button} component={Link} to="/about" color="inherit">
               About
             </Button>
-            <Button
-              sx={button}
-              component={Link}
-              to="/scheduler"
-              color="inherit"
-            >
-              Scheduler
-            </Button>
-            <Button sx={button} component={Link} to="/roster" color="inherit">
-              Roster
-            </Button>
-            <Button sx={button} component={Link} to="/import" color="inherit">
-              Import
-            </Button>
+            {userId ? (
+              <Button
+                sx={button}
+                component={Link}
+                to="/scheduler"
+                color="inherit"
+              >
+                Scheduler
+              </Button>
+            ) : null}
+            {userId ? (
+              <Button sx={button} component={Link} to="/roster" color="inherit">
+                Roster
+              </Button>
+            ) : null}
+            {userId ? (
+              <Button sx={button} component={Link} to="/import" color="inherit">
+                Import
+              </Button>
+            ) : null}
             <Button sx={button} component={Link} to="/contact" color="inherit">
               Contact
             </Button>
+            {userId ? (
+              <Button sx={button} onClick={handleLogout} color="inherit">
+                Logout
+              </Button>
+            ) : null}
+            {userId ? null : (
+              <Button sx={button} component={Link} to="/login" color="inherit">
+                Login
+              </Button>
+            )}
           </Box>
           <IconButton
             size="large"
@@ -128,30 +165,36 @@ const NavBar = () => {
             >
               ABOUT
             </MenuItem>
-            <MenuItem
-              onClick={handleClose}
-              sx={{ fontSize: "13px" }}
-              component={Link}
-              to="/scheduler"
-            >
-              SCHEDULER
-            </MenuItem>
-            <MenuItem
-              onClick={handleClose}
-              sx={{ fontSize: "13px" }}
-              component={Link}
-              to="/roster"
-            >
-              ROSTER
-            </MenuItem>
-            <MenuItem
-              onClick={handleClose}
-              sx={{ fontSize: "13px" }}
-              component={Link}
-              to="/import"
-            >
-              IMPORT
-            </MenuItem>
+            {userId ? (
+              <MenuItem
+                onClick={handleClose}
+                sx={{ fontSize: "13px" }}
+                component={Link}
+                to="/scheduler"
+              >
+                SCHEDULER
+              </MenuItem>
+            ) : null}
+            {userId ? (
+              <MenuItem
+                onClick={handleClose}
+                sx={{ fontSize: "13px" }}
+                component={Link}
+                to="/roster"
+              >
+                ROSTER
+              </MenuItem>
+            ) : null}
+            {userId ? (
+              <MenuItem
+                onClick={handleClose}
+                sx={{ fontSize: "13px" }}
+                component={Link}
+                to="/import"
+              >
+                IMPORT
+              </MenuItem>
+            ) : null}
             <MenuItem
               onClick={handleClose}
               sx={{ fontSize: "13px" }}
@@ -160,6 +203,21 @@ const NavBar = () => {
             >
               CONTACT
             </MenuItem>
+            {!userId ? (
+              <MenuItem
+                onClick={handleClose}
+                sx={{ fontSize: "13px" }}
+                component={Link}
+                to="/login"
+              >
+                LOGIN
+              </MenuItem>
+            ) : null}
+            {userId ? (
+              <MenuItem onClick={handleLogoutMobile} sx={{ fontSize: "13px" }}>
+                LOGOUT
+              </MenuItem>
+            ) : null}
           </Menu>
         </Toolbar>
       </AppBar>
