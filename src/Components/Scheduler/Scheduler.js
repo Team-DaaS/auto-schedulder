@@ -117,16 +117,14 @@ class App extends Component {
       items,
       defaultTimeStart,
       defaultTimeEnd,
-      userId: props.userId,
     };
 
-    // console.log(this.userId);
+    if (props.userId === 0 || !props.userId) {
+      return <Redirect to="/login" />;
+    }
   }
 
   render() {
-    if (this.userId === 0 || !this.userId) {
-      return <Redirect to="/login" />;
-    }
     const { groups, items, defaultTimeStart, defaultTimeEnd } = this.state;
     return (
       <Timeline
