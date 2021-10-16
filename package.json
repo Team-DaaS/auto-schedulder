@@ -2,7 +2,7 @@
   "name": "auto-scheduler",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:6060",
+  "proxy": "http://localhost:5050",
   "main": "server/index.js",
   "dependencies": {
     "@emotion/react": "^11.4.1",

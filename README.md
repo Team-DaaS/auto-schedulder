@@ -25,6 +25,7 @@ B2 = bracket 2,3
 
 -- START example
 bracket example:
+
 0 = >=6 girls =  8 teams
 1 = >=6 boys = 8 teams
 
@@ -51,12 +52,11 @@ C1 = bracket 4,5
 C2 = bracket 4,5
 
 
-Fake Family - 5 kids - Family ID(304) (player/kids = bracket [0,3,3,4,9] team IDs [7,4,8,9,1])
+Fake Family One- 5 kids - Family ID(304) (player/kids = bracket [0,3,3,4,9] team IDs [7,4,8,9,1])
 
-Fake Family One -  4 kids - ID(305) (player/kids = bracket [1,3,2,5]  team IDs  [2,3,5,6])
+Fake Family Two -  4 kids - ID(305) (player/kids = bracket [1,3,2,5]  team IDs  [2,3,5,6])
 
-Step one - Largest family First 
-Step two - Set the first player of the largest family in game spot with the player ID and the bracket ID (== bracket) (loop the rest of the family )
+Step One - Set the first player of the largest family in game spot with the player ID and the bracket ID (== bracket) (loop the rest of the family )
     a) familiy member 1 ( bracket 0 team 7 location A1 date (10-2-2021) time (9:00am) (team spot 1)) Family ID(304) -- This player is A1 bracket 0 9am
     b) familiy member 2 ( bracket 3 team 4 location B1 date (10-2-2021) time (10:00am) (team spot 1) Family ID(304)
     c) familiy member 3 ( bracket 3 team 8 location B1 date (10-2-2021) time (11:00am) (team spot 1) Family ID(304)
@@ -114,3 +114,48 @@ Step three -
 
 
 -- END example
+
+
+Match 1
+
+Team A 
+4 / 10 
+sib:
+1 = 1
+2 = 3
+3 = 2
+4 = 1
+= 7
+
+Team B
+2 / 10  
+= 6
+
+field 1 
+First match = 13 
+-first check bracket to connect to the location. 
+-add to field A at 9am
+
+3rd match = 5   
+
+2nd match = 3
+4th match = 2
+
+-------------
+
+
+4 locations
+each location has two spots A & B
+
+
+
+
+
+West Ham United
+Aston Villa
+Birmingham City
+Leicester City
+Liverpool
+Manchester United
+Sunderland Ladies
+Tottenham Hotspur

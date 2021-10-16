@@ -5,6 +5,7 @@ const session = require("express-session");
 
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env;
 const { register, login, logout } = require("./Controller/authCtrl");
+const { getTeams } = require("./Controller/autoSched")
 const app = express();
 
 app.use(express.json());
@@ -18,7 +19,7 @@ app.use(
   })
 );
 
-// app.use(middleware);
+// app.use(middleware); getTeams
 
 massive({
   connectionString: CONNECTION_STRING,
@@ -30,11 +31,15 @@ massive({
   })
   .catch((err) => console.log(err));
 
-//middleware
+//middleware TBD for basic secutiry
 
+//auth
 app.post("/api/register", register);
 app.delete("/api/logout", logout);
 app.post("/api/login", login);
+
+//get teams
+app.get('/api/teams', getTeams);
 
 app.listen(SERVER_PORT, () =>
   console.log(`Server running on Port ${SERVER_PORT}`)

@@ -97,7 +97,7 @@ export default class App extends Component {
                     "className": "",
                 }, {
                     "id": "3",
-                    "group": "3",
+                    // "group": "3",
                     "title": "Team Unicorn vs Team Rainbow  - 2% Conflict",
                     "start": startValueB,
                     "end": endValueB,
