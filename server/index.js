@@ -41,11 +41,8 @@ app.post("/api/login", login);
 //get teams
 app.get('/api/teams', getTeams);
 
-app.listen(SERVER_PORT, () =>
-  console.log(`Server running on Port ${SERVER_PORT}`)
-);
 //Logged in users
 app.get("/auth/user", getUser),
   app.listen(SERVER_PORT, () =>
     console.log(`Server running on Port ${SERVER_PORT}`)
-  );
+);
