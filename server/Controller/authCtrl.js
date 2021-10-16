@@ -27,13 +27,13 @@ module.exports = {
   login: async (req, res) => {
     const db = req.app.get("db");
     const { email, password } = req.body;
+    console.log("line 30");
 
-    const existingUser = await db.auth.check_user({ email });
+    const existingUser = await db.Auth.check_user({ email });
     console.log(existingUser);
     if (!existingUser[0]) {
       return res.status(404).send("User is not found");
     }
-    console.log("line 35");
     const isAuthenticated = await bcrypt.compare(
       password,
       existingUser[0].password
@@ -51,5 +51,10 @@ module.exports = {
   logout: (req, res) => {
     req.session.destroy();
     return res.sendStatus(200);
+  },
+
+  getUser: (req, res) => {
+    const user = req.session.user;
+    res.status(200).send(user);
   },
 };

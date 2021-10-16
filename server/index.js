@@ -4,7 +4,7 @@ const massive = require("massive");
 const session = require("express-session");
 
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env;
-const { register, login, logout } = require("./Controller/authCtrl");
+const { register, login, logout, getUser } = require("./Controller/authCtrl");
 const { getTeams } = require("./Controller/autoSched")
 const app = express();
 
@@ -44,3 +44,8 @@ app.get('/api/teams', getTeams);
 app.listen(SERVER_PORT, () =>
   console.log(`Server running on Port ${SERVER_PORT}`)
 );
+//Logged in users
+app.get("/auth/user", getUser),
+  app.listen(SERVER_PORT, () =>
+    console.log(`Server running on Port ${SERVER_PORT}`)
+  );
