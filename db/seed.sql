@@ -3,7 +3,7 @@ create table login (
     id serial primary key,
     password varchar(200) not null,
     email varchar(100) not null,
-    league_name varchar(100) not null
+    ue_name varchar(100) not null
 );
 
 -- drop table if exists game_spots;
