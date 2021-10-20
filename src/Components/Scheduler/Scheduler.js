@@ -124,6 +124,18 @@ class App extends Component {
         console.log('user id:', props.userId);
     }
 
+    //function to find individual team weights
+
+function teamWeights (arr) {
+    var idCounts = {};
+    for (let i = 0; i < arr.length; i ++) {
+    if (idCounts[arr[i].teamId] == null) {
+        idCounts[arr[i].teamId] = 0;
+    }
+    idCounts[arr[i].teamId] += 1;
+}  
+return idCounts;  
+};
     componentDidMount() {
         axios.get('/api/teams')
             .then((response) => {
