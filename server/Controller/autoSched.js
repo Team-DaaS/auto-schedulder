@@ -105,11 +105,9 @@ module.exports = {
                 tournamentRounds.push(matchParticipants(p));
                 p = rotateArray(p);
             }
-            // console.log('rounds?',tournamentRounds)
             return tournamentRounds;
         };
         
-        // generateTournament(brack8B)
         //  loop to run team bracket over the tournament function
         const matches = []
         for (let i = 0; i < allBracket.length; i++) {
@@ -121,7 +119,6 @@ module.exports = {
         for (const key in matches) {
             const res = matches[key][key]
             let matchFlat = res.flat()
-            console.log('matchFlat',matchFlat)
             for (let i = 0; i < matchFlat.length; i++) {
                 let dbTeam = matchFlat[i][0].teamId
                 // console.log(dbTeam)
