@@ -59,17 +59,17 @@ class App extends Component {
         //start demo data
         const groups = [
             {
-                id: "1",
+                id: "4",
                 title: "Eastwood Field - 1",
                 bgColor: "#fcedbd",
             },
             {
-                id: "2",
+                id: "5",
                 title: "Eastwood Field - 2",
                 bgColor: "#f5f771",
             },
             {
-                id: "3",
+                id: "6",
                 title: "Eastwood Field - 3",
                 bgColor: "#d3f279",
             },
@@ -77,7 +77,7 @@ class App extends Component {
         const items = [
             {
                 id: "0",
-                group: "1",
+                group: "4",
                 title: "Team Viper vs Team Raptor Claws - 5% Conflict",
                 start: startValueA,
                 end: endValueA,
@@ -88,7 +88,7 @@ class App extends Component {
             },
             {
                 id: "1",
-                group: "2",
+                group: "5",
                 title: "Team Wildcats vs Team Eagles - 10% Conflict",
                 start: startValueB,
                 end: endValueB,
@@ -96,7 +96,7 @@ class App extends Component {
             },
             {
                 id: "2",
-                group: "3",
+                group: "6", //9am
                 title: "Team Hooligans vs Team Temper Tantrum - 8% Conflict",
                 start: startValueA,
                 end: endValueA,
@@ -104,12 +104,12 @@ class App extends Component {
             },
             {
                 id: "3",
-                group: "3",
+                group: "6", //10am
                 title: "Team Unicorn vs Team Rainbow  - 2% Conflict",
                 start: startValueB,
                 end: endValueB,
                 className: "",
-            },
+            }, 
         ];
         //end demo data
 
@@ -128,7 +128,8 @@ class App extends Component {
         axios.get('/api/teams')
             .then((response) => {
                 this.setState({ matches: response.data.matches });
-                console.log(response.data.gameWeights)
+                // console.log('Teams with siblings source', response.data.gameWeights)
+                // console.log('Brackets', response.data.matches)
                 this.setState({ teamWeight: response.data.gameWeights });
             })
     };
@@ -138,14 +139,58 @@ class App extends Component {
         // if (this.props.userId === 0 || !this.props.userId) {
         //     return <Redirect to="/login" />;
         // }
+        
 
-        let bracket = []
-        this.state.matches.map(function (el, i) {
-            bracket.push({
-                bracket: el,           
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        //Create teams title matches for items object
+        const teamNames = this.state.matches
+        const teamsFlat = teamNames.flat()
+        const teamsTitle = []
+        teamsFlat.forEach((team)=>{
+            team.forEach((teamEl)=>{
+                const teamA = []
+                const teamB = []
+                teamEl.forEach((teamNames, i)=>{
+                    if(i % 2 == 0) {
+                        teamA.push(teamNames[0].teamName);
+                    }
+                    else {
+                        teamB.push(teamNames[0].teamName);
+                    }        
+                })
+                teamsTitle.push({matchTitle:teamA + ' vs ' + teamB})
             })
         })
-        console.log(bracket)
+        console.log('Teams Title', teamsTitle)
+
         const { groups, items, defaultTimeStart, defaultTimeEnd } = this.state;
         return (
             <Timeline
@@ -190,3 +235,45 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(App);
+
+
+
+
+
+        // let bracket = []
+        // this.state.matches.forEach(function (el, i) {
+        //     let elFlat = el.flat()
+
+            // console.log('elFlat',elFlat)
+            // bracket.push(elFlat)
+            // console.log('elFlat', elFlat)
+            // bracket.push({
+                //Object we need to build
+                // groups: [
+                //     {
+                //         id: i,
+                //         title: el.find(),
+                //         bgColor: "#fcedbd",
+                //     },
+                // ],
+
+                // items: [
+                //     {
+                //         id: "0",
+                //         group: "1",
+                //         title: "Team Viper vs Team Raptor Claws - 5% Conflict",
+                //         start: startValueA,
+                //         end: endValueA,
+                //         tip: "additional information",
+                //         color: "rgb(158, 14, 206)",
+                //         selectedBgColor: "rgba(225, 166, 244, 1)",
+                //         bgColor: "rgba(225, 166, 244, 0.6)",
+                //     },
+                // ]
+        //     })
+        // })
+        // Step 2 - Create a function to deal with sibling weights
+            //2.1 count team ID's
+            //match weight value
+         // Step 3 - Set time based on step 2 function
+        // console.log('Brackets', bracket)
