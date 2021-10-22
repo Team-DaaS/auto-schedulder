@@ -19,7 +19,7 @@ module.exports = {
                     teamId: teams[key].team_id,
                     teamName: teams[key].team_name,
                     teamBracket: teams[key].bracket,
-                    groupId: 0,
+                    groupId: 1,
                 }])
             }
             if (brakCheck === '-8G') {
@@ -27,7 +27,7 @@ module.exports = {
                     teamId: teams[key].team_id,
                     teamName: teams[key].team_name,
                     teamBracket: teams[key].bracket,
-                    groupId: 1,
+                    groupId: 2,
                 }])
             }      
             if (brakCheck === '-9B') {
@@ -35,7 +35,7 @@ module.exports = {
                     teamId: teams[key].team_id,
                     teamName: teams[key].team_name,
                     teamBracket: teams[key].bracket,
-                    groupId: 2,
+                    groupId: 3,
                 }])
             }
             if (brakCheck === '-9G') {
@@ -43,7 +43,7 @@ module.exports = {
                     teamId: teams[key].team_id,
                     teamName: teams[key].team_name,
                     teamBracket: teams[key].bracket,
-                    groupId: 3,
+                    groupId: 4,
                 }])
             }          
             if (brakCheck === '-10B') {
@@ -51,7 +51,7 @@ module.exports = {
                     teamId: teams[key].team_id,
                     teamName: teams[key].team_name,
                     teamBracket: teams[key].bracket,
-                    groupId: 4,
+                    groupId: 5,
                 }])
             }                           
             if (brakCheck === '-10G') {
@@ -59,7 +59,7 @@ module.exports = {
                     teamId: teams[key].team_id,
                     teamName: teams[key].team_name,
                     teamBracket: teams[key].bracket,
-                    groupId: 5,
+                    groupId: 6,
                 }])
             }                           
             if (brakCheck === '-11B') {
@@ -67,7 +67,7 @@ module.exports = {
                     teamId: teams[key].team_id,
                     teamName: teams[key].team_name,
                     teamBracket: teams[key].bracket,
-                    groupId: 6,
+                    groupId: 7,
                 }])
             }           
             if (brakCheck === '-11G') {

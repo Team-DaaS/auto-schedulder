@@ -124,6 +124,7 @@ class App extends Component {
             defaultTimeEnd,
             matches: [],
             teamWeight: [],
+            matchTime: [],
         };
         // console.log("user id:", props.userId);
     }
@@ -156,8 +157,8 @@ class App extends Component {
             teamsFlat.forEach((team) => {
                 team.forEach((teamEl) => {
                     const teamA = []
-                    const groupId = []
                     const teamB = []
+                    const groupId = []                    
                     teamEl.forEach((teamNames, i) => {
                         if (i % 2 == 0) {
                             teamA.push(teamNames[0].teamName);
@@ -174,6 +175,8 @@ class App extends Component {
                 })
             })
             const masterObj = allGames
+            console.log('Source Response', masterObj)
+            console.log('Flat teams array', teamsTitle)
             const itemsSched = []
             for (let i = 0; i < teamsTitle.length; i++) {
                 // console.log('huh',teamsTitle[i].groupId[0])
@@ -190,6 +193,7 @@ class App extends Component {
                     },
                 )
             }
+            this.setState({ items: itemsSched });
             // console.log('IS', itemsSched)
 
             // teamsTitle.forEach((el, i) => {
@@ -208,7 +212,6 @@ class App extends Component {
             //     )
             // })
             // })
-            this.setState({ items: itemsSched });
         });
     }
 
@@ -218,7 +221,7 @@ class App extends Component {
         //     return <Redirect to="/login" />;
         // }
         const { groups, items, defaultTimeStart, defaultTimeEnd } = this.state;
-        console.log('items', items)
+        // console.log('items', items)
         return (
             <Timeline
                 groups={groups}
