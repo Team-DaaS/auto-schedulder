@@ -133,7 +133,8 @@ class App extends Component {
             this.setState({ teamWeight: response.data.gameWeights });
             this.setState({ matches: response.data.matches });
             // console.log(response.data.gameWeights);
-
+            let { matches: allGames } = response.data
+            
             // Set the Groups Object
             let getGroups = (array) => {
                 const groups = [];
@@ -147,42 +148,66 @@ class App extends Component {
                 }
                 this.setState({ groups: groups });
             };
-            getGroups(response.data.matches)
+            getGroups(allGames)
 
-            let matchRes = response.data.matches
+            let matchRes = allGames
             const teamsFlat = matchRes.flat()
             const teamsTitle = []
             teamsFlat.forEach((team) => {
                 team.forEach((teamEl) => {
                     const teamA = []
+                    const groupId = []
                     const teamB = []
                     teamEl.forEach((teamNames, i) => {
                         if (i % 2 == 0) {
                             teamA.push(teamNames[0].teamName);
+                            groupId.push(teamNames[0].groupId);
                         }
                         else {
-                            teamB.push(teamNames[0].teamName);
+                            teamB.push(teamNames[0].teamName)
                         }
                     })
-                    teamsTitle.push(teamA + ' vs ' + teamB)
+                    teamsTitle.push({
+                        matchName: teamA + ' vs ' + teamB,
+                        groupId: groupId,
+                    })
                 })
             })
-            const masterObj = response.data.matches
+            const masterObj = allGames
             const itemsSched = []
-            masterObj.forEach((el, i) => {
+            for (let i = 0; i < teamsTitle.length; i++) {
+                // console.log('huh',teamsTitle[i].groupId[0])
                 itemsSched.push(
-                        {
-                            id: i,
-                            group: "1",
-                            title: teamsTitle[i],
-                            start: startValueA,
-                            end: endValueA,
-                            color: "rgb(158, 14, 206)",
-                            selectedBgColor: "rgba(225, 166, 244, 1)",
-                            bgColor: "rgba(225, 166, 244, 0.6)",
-                        },
-                    )
-            })
+                    {
+                        id: i,
+                        group: teamsTitle[i].groupId[0],
+                        title: teamsTitle[i].matchName,
+                        start: startValueA,
+                        end: endValueA,
+                        color: "rgb(158, 14, 206)",
+                        selectedBgColor: "rgba(225, 166, 244, 1)",
+                        bgColor: "rgba(225, 166, 244, 0.6)",
+                    },
+                )
+            }
+            // console.log('IS', itemsSched)
+
+            // teamsTitle.forEach((el, i) => {
+            // el.map(() => {
+            //     itemsSched.push(
+            //         {
+            //             id: i,
+            //             group: "1",
+            //             title: teamsTitle[i],
+            //             start: startValueA,
+            //             end: endValueA,
+            //             color: "rgb(158, 14, 206)",
+            //             selectedBgColor: "rgba(225, 166, 244, 1)",
+            //             bgColor: "rgba(225, 166, 244, 0.6)",
+            //         },
+            //     )
+            // })
+            // })
             this.setState({ items: itemsSched });
         });
     }
