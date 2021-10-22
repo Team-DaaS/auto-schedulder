@@ -18,56 +18,64 @@ module.exports = {
                 brack8B.push([{
                     teamId: teams[key].team_id,
                     teamName: teams[key].team_name,
-                    teamBracket: teams[key].bracket
+                    teamBracket: teams[key].bracket,
+                    groupId: 0,
                 }])
             }
             if (brakCheck === '-8G') {
                 brack8G.push([{
                     teamId: teams[key].team_id,
                     teamName: teams[key].team_name,
-                    teamBracket: teams[key].bracket
+                    teamBracket: teams[key].bracket,
+                    groupId: 1,
                 }])
             }      
             if (brakCheck === '-9B') {
                 brack9B.push([{
                     teamId: teams[key].team_id,
                     teamName: teams[key].team_name,
-                    teamBracket: teams[key].bracket
+                    teamBracket: teams[key].bracket,
+                    groupId: 2,
                 }])
             }
             if (brakCheck === '-9G') {
                 brack9G.push([{
                     teamId: teams[key].team_id,
                     teamName: teams[key].team_name,
-                    teamBracket: teams[key].bracket
+                    teamBracket: teams[key].bracket,
+                    groupId: 3,
                 }])
             }          
             if (brakCheck === '-10B') {
                 brack10B.push([{
                     teamId: teams[key].team_id,
                     teamName: teams[key].team_name,
-                    teamBracket: teams[key].bracket
+                    teamBracket: teams[key].bracket,
+                    groupId: 4,
                 }])
             }                           
             if (brakCheck === '-10G') {
                 brack10G.push([{
                     teamId: teams[key].team_id,
                     teamName: teams[key].team_name,
-                    teamBracket: teams[key].bracket
+                    teamBracket: teams[key].bracket,
+                    groupId: 5,
                 }])
             }                           
             if (brakCheck === '-11B') {
                 brack11B.push([{
                     teamId: teams[key].team_id,
                     teamName: teams[key].team_name,
-                    teamBracket: teams[key].bracket
+                    teamBracket: teams[key].bracket,
+                    groupId: 6,
                 }])
             }           
             if (brakCheck === '-11G') {
                 brack11G.push([{
                     teamId: teams[key].team_id,
                     teamName: teams[key].team_name,
-                    teamBracket: teams[key].bracket
+                    teamBracket: teams[key].bracket,
+                    groupId: 8,
                 }])
             }                                                   
         }
@@ -105,11 +113,9 @@ module.exports = {
                 tournamentRounds.push(matchParticipants(p));
                 p = rotateArray(p);
             }
-            // console.log('rounds?',tournamentRounds)
             return tournamentRounds;
         };
         
-        // generateTournament(brack8B)
         //  loop to run team bracket over the tournament function
         const matches = []
         for (let i = 0; i < allBracket.length; i++) {
@@ -121,7 +127,6 @@ module.exports = {
         for (const key in matches) {
             const res = matches[key][key]
             let matchFlat = res.flat()
-            console.log('matchFlat',matchFlat)
             for (let i = 0; i < matchFlat.length; i++) {
                 let dbTeam = matchFlat[i][0].teamId
                 // console.log(dbTeam)
