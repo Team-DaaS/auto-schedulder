@@ -249,7 +249,7 @@ class App extends Component {
     //     return <Redirect to="/login" />;
     // }
     const { groups, items, defaultTimeStart, defaultTimeEnd } = this.state;
-    console.log("items", items);
+    // console.log('items', items)
     return (
       <Timeline
         groups={groups}
