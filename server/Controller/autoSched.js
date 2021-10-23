@@ -149,6 +149,20 @@ module.exports = {
       matches.push(generateTournament(allBracket[i]));
     }
 
+    var result = arr.reduce(function (acc, val) {
+      var weight = acc
+        .filter(function (obj) {
+          return obj.teamId == val.teamId;
+        })
+        .pop() || { teamId: val.teamId, familyId: 0 };
+
+      weight.familyId += val.familyId;
+      acc.push(weight);
+      return acc;
+    }, []);
+
+    console.log(result);
+
     // loop over the teams, call the DB and send
     let gameWeights = [];
     for (const key in matches) {
