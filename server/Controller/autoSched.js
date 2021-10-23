@@ -22,7 +22,7 @@ module.exports = {
             teamId: teams[key].team_id,
             teamName: teams[key].team_name,
             teamBracket: teams[key].bracket,
-            groupId: 0,
+            groupId: 1,
           },
         ]);
       }
@@ -32,7 +32,7 @@ module.exports = {
             teamId: teams[key].team_id,
             teamName: teams[key].team_name,
             teamBracket: teams[key].bracket,
-            groupId: 1,
+            groupId: 2,
           },
         ]);
       }
@@ -42,7 +42,7 @@ module.exports = {
             teamId: teams[key].team_id,
             teamName: teams[key].team_name,
             teamBracket: teams[key].bracket,
-            groupId: 2,
+            groupId: 3,
           },
         ]);
       }
@@ -52,7 +52,7 @@ module.exports = {
             teamId: teams[key].team_id,
             teamName: teams[key].team_name,
             teamBracket: teams[key].bracket,
-            groupId: 3,
+            groupId: 4,
           },
         ]);
       }
@@ -62,7 +62,7 @@ module.exports = {
             teamId: teams[key].team_id,
             teamName: teams[key].team_name,
             teamBracket: teams[key].bracket,
-            groupId: 4,
+            groupId: 5,
           },
         ]);
       }
@@ -72,7 +72,7 @@ module.exports = {
             teamId: teams[key].team_id,
             teamName: teams[key].team_name,
             teamBracket: teams[key].bracket,
-            groupId: 5,
+            groupId: 6,
           },
         ]);
       }
@@ -82,7 +82,7 @@ module.exports = {
             teamId: teams[key].team_id,
             teamName: teams[key].team_name,
             teamBracket: teams[key].bracket,
-            groupId: 6,
+            groupId: 7,
           },
         ]);
       }
