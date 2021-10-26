@@ -92,7 +92,7 @@ module.exports = {
             teamId: teams[key].team_id,
             teamName: teams[key].team_name,
             teamBracket: teams[key].bracket,
-            groupId: 7,
+            groupId: 8,
           },
         ]);
       }

@@ -6,6 +6,7 @@ import moment from "moment";
 // import { MapStateToProps } from "react-redux";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
+import _ from "lodash";
 
 import Timeline, {
     TimelineHeaders,
@@ -79,7 +80,7 @@ class App extends Component {
                 }
                 this.setState({ groups: groups });
             };
-            getGroups(matches)            
+            getGroups(matches)
 
             const getGameDays = (arr) => {
                 const allMatches = [];
@@ -92,9 +93,10 @@ class App extends Component {
                     for (let j = 0; j < arr[i].length; j++) {
                         for (let k = 0; k < arr[i][j].length; k++) {
                             const newObj = {
+                                group: arr[i][j][k][0][0].groupId,
+                                totalWeight: [],
                                 dayPlay: [j][0],
                                 id: countId,
-                                group: arr[i][j][k][0][0].groupId,
                                 title: `${arr[i][j][k][0][0].teamName} vs ${arr[i][j][k][1][0].teamName}`,
                                 teamOneId: arr[i][j][k][0][0].teamId,
                                 teamTwoId: arr[i][j][k][1][0].teamId,
@@ -130,8 +132,8 @@ class App extends Component {
                     return teamWeight;
                 };
                 const objWithTeamWeight = weightTeams(gameWeights);
-                console.log(objWithTeamWeight);
-                console.log(allMatches);
+                // console.log(objWithTeamWeight);
+
                 for (let y = 0; y < allMatches.length; y++) {
                     // console.log(objWithTeamWeight[allMatches[y].teamOneId]);
                     // console.log(objWithTeamWeight[allMatches[y].teamTwoId]);
@@ -143,15 +145,33 @@ class App extends Component {
                             ? 0
                             : objWithTeamWeight[allMatches[y].teamTwoId]);
                 }
-                console.log(days);
-                ///
-
-                //before push all the games into playDays we can add the weight
-                for (let p = 0; p < allMatches.length; p++) {
-                    days[allMatches[p].dayPlay].push(allMatches[p]);
+                // 
+                // Note, hard set day values 8 and 7 need to be refactored
+                const matchDaysByGroup = []
+                for (let x = 0; x <= 7; x++) {
+                    let match = allMatches.filter(allM => allM.dayPlay === x && allM != null)
+                    for (let z = 1; z <= 8; z++) {
+                        let daysByGroup = match.filter(dBg => dBg.group === z && dBg != null)
+                        matchDaysByGroup.push(daysByGroup)
+                    }
                 }
+                const dailyBrackets = []
+                let i,j, dayBrackets, chunk = 8;
+                for (i = 0,j = matchDaysByGroup.length; i < j; i += chunk) {
+                    dayBrackets = matchDaysByGroup.slice(i, i + chunk);
+                    dailyBrackets.push(dayBrackets)
+                }
+                console.log(dailyBrackets)
+                // dayBrackets.map((el)=>{
+                //     el.forEach((weight)=>{
+                        
+                //         // const weights = weight.totalWeight
+                //         // const sumBracketsByDay = _.sum(weights);
+                //         // console.log(sumBracketsByDay)
+                //     })
+                // })
+                
             };
-
             getGameDays(matches);
             // this.setState({ items: itemsSched });
         });
