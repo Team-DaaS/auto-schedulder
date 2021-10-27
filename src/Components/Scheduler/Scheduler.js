@@ -156,21 +156,35 @@ class App extends Component {
                     }
                 }
                 const dailyBrackets = []
-                let i,j, dayBrackets, chunk = 8;
-                for (i = 0,j = matchDaysByGroup.length; i < j; i += chunk) {
+                let i, j, dayBrackets, chunk = 8;
+                for (i = 0, j = matchDaysByGroup.length; i < j; i += chunk) {
                     dayBrackets = matchDaysByGroup.slice(i, i + chunk);
                     dailyBrackets.push(dayBrackets)
                 }
-                console.log(dailyBrackets)
+                
+                
+
+                for (let p = 0; p < dailyBrackets.length; p++) {
+                    for (let a = 0; a < dailyBrackets[p].length; a++) {
+                        if(dailyBrackets[p].length > 2){
+                            let shiftOne = dailyBrackets[p][a].shift()
+                            dailyBrackets[p][a].splice(dailyBrackets[p][a].length -a, 1, shiftOne);
+                        }
+                    }
+                }
+                console.log('happy', dailyBrackets )
+
+
+
                 // dayBrackets.map((el)=>{
                 //     el.forEach((weight)=>{
-                        
+
                 //         // const weights = weight.totalWeight
                 //         // const sumBracketsByDay = _.sum(weights);
                 //         // console.log(sumBracketsByDay)
                 //     })
                 // })
-                
+
             };
             getGameDays(matches);
             // this.setState({ items: itemsSched });
