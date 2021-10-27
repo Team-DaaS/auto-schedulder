@@ -160,15 +160,12 @@ class App extends Component {
           }
         }
         const dailyBrackets = [];
-        let i,
-          j,
-          dayBrackets,
-          chunk = 8;
+        let i,j,dayBrackets,chunk = 8;
         for (i = 0, j = matchDaysByGroup.length; i < j; i += chunk) {
           dayBrackets = matchDaysByGroup.slice(i, i + chunk);
           dailyBrackets.push(dayBrackets);
         }
-        // console.log(dailyBrackets);
+        
         //////////SORT BY MATCHES TOTAL WEIGHT
         const sortWeightBracket = (arr) => {
           for (let i = 0; i < arr.length; i++) {
@@ -182,7 +179,7 @@ class App extends Component {
 
         sortWeightBracket(dailyBrackets);
 
-        ///////SUM ALL MATCHES WEIGHT TO GET BRACKET WEIGHT
+        // ///////SUM ALL MATCHES WEIGHT TO GET BRACKET WEIGHT
 
         const getBracketPerDayWeight = (arr) => {
           for (let i = 0; i < arr.length; i++) {
@@ -201,17 +198,32 @@ class App extends Component {
 
         getBracketPerDayWeight(dailyBrackets);
 
+        const dayWeightSameBracket = (arr) => {
+          for (let i = 0; i < arr.length; i++) {
+            arr[i].sort((a, b) => {
+              return a[a.length - 1].bracketWeight >
+                b[b.length - 1].bracketWeight
+                ? -1
+                : 1;
+            });
+          }
+        };
+
+        dayWeightSameBracket(dailyBrackets);        
+
+        for (let p = 0; p < dailyBrackets.length; p++) {
+          let backCount = 0
+          for (let a = 0; a < dailyBrackets[p].length; a++) {
+            dailyBrackets[p][a].pop()
+            if (dailyBrackets[p][a].length > 2) {
+              let shiftOne = dailyBrackets[p][a].shift()
+              dailyBrackets[p][a].splice(-5, 0, "shiftOne");
+              backCount--
+            }
+          }
+        }
         console.log(dailyBrackets);
 
-        /////////////////////////////
-        // dayBrackets.map((el)=>{
-        //     el.forEach((weight)=>{
-
-        //         // const weights = weight.totalWeight
-        //         // const sumBracketsByDay = _.sum(weights);
-        //         // console.log(sumBracketsByDay)
-        //     })
-        // })
       };
       getGameDays(matches);
       // this.setState({ items: itemsSched });
@@ -239,8 +251,8 @@ class App extends Component {
         canResize={true}
         defaultTimeStart={defaultTimeStart}
         defaultTimeEnd={defaultTimeEnd}
-        // visibleTimeStart={defaultTimeStart}
-        // visibleTimeEnd={defaultTimeEnd}
+      // visibleTimeStart={defaultTimeStart}
+      // visibleTimeEnd={defaultTimeEnd}
       >
         <TimelineHeaders className="sticky">
           <SidebarHeader>
