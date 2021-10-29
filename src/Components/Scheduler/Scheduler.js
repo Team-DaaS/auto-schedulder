@@ -200,8 +200,9 @@ class App extends Component {
         };
 
         getBracketPerDayWeight(dailyBrackets);
-
         console.log(dailyBrackets);
+
+        debugger;
 
         /////////////////////////////
         // dayBrackets.map((el)=>{
