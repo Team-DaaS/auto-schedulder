@@ -31,7 +31,7 @@ var keys = {
 const startMatch = moment("2021-10-02 11:30");
 const startDate = startMatch.format("YYYY/MM/DD, HH:mm");
 const startValueA = moment(startDate);
-moment().add(10, 'days').calendar();
+moment().add(10, "days").calendar();
 
 const endMatch = moment("2021-10-02 12:30");
 const endDate = endMatch.format("YYYY/MM/DD, HH:mm");
@@ -40,7 +40,7 @@ const endValueA = moment(endDate);
 class App extends Component {
   constructor(props) {
     super(props);
-    // This time setup is to default the calendar view, cannot be removed, should be variables 
+    // This time setup is to default the calendar view, cannot be removed, should be variables
     const defaultTimeStart = moment("2021-10-02 08:00")
       .startOf("hour")
       .toDate();
@@ -49,11 +49,11 @@ class App extends Component {
       // .add(1, "day")
       .toDate();
 
-    let date = "2021-10-02 11:30"
+    let date = "2021-10-02 11:30";
     const momentExample = moment(date, "YYYY-DD-MM hh:mm:ss")
-      .add(7, 'da')
-      .format('YYYY/DD/MM hh:mm');
-    console.log('mem', momentExample)
+      .add(7, "da")
+      .format("YYYY/DD/MM hh:mm");
+    console.log("mem", momentExample);
 
     const getDate = (arr) => {
       //Example A
@@ -99,7 +99,6 @@ class App extends Component {
         this.setState({ groups: groups });
       };
       getGroups(matches);
-
 
       /////// START THE SCHDULE FUNCTION
       const getGameDays = (arr) => {
@@ -161,7 +160,6 @@ class App extends Component {
               : objWithTeamWeight[allMatches[y].teamTwoId]);
         }
 
-
         ////// ORGANIZE THE MATCHES BY DAYS AND GROUPS
         const matchDaysByGroup = [];
         for (let x = 0; x <= 7; x++) {
@@ -178,7 +176,10 @@ class App extends Component {
 
         ////// CHUNK THE ARRAY INTO DAYS PLAYED, this step might not be needed
         const dailyBrackets = [];
-        let i, j, dayBrackets, chunk = 8;
+        let i,
+          j,
+          dayBrackets,
+          chunk = 8;
         for (i = 0, j = matchDaysByGroup.length; i < j; i += chunk) {
           dayBrackets = matchDaysByGroup.slice(i, i + chunk);
           dailyBrackets.push(dayBrackets);
@@ -215,7 +216,7 @@ class App extends Component {
 
         getBracketPerDayWeight(dailyBrackets);
 
-        /////////////// SET BRACKETS BY DAY DESCENDING 
+        /////////////// SET BRACKETS BY DAY DESCENDING
         const dayWeightSameBracket = (arr) => {
           for (let i = 0; i < arr.length; i++) {
             arr[i].sort((a, b) => {
@@ -230,81 +231,91 @@ class App extends Component {
         dayWeightSameBracket(dailyBrackets);
 
         /////// ADD TIME SLOTS
-        let bracketTimeSlot = []
+        let bracketTimeSlot = [];
         for (let p = 0; p < dailyBrackets.length; p++) {
           for (let a = 0; a < dailyBrackets[p].length; a++) {
-            dailyBrackets[p][a].pop()
+            dailyBrackets[p][a].pop();
             for (let b = 0; b <= 5; b++) {
               bracketTimeSlot.push(
-                dailyBrackets[p][a][b] === undefined ? b : dailyBrackets[p][a][b]
-              )
+                dailyBrackets[p][a][b] === undefined
+                  ? b
+                  : dailyBrackets[p][a][b]
+              );
             }
           }
         }
 
         ///// SET TIME SLOT HOURS
         const dailyBracketsTimeSlots = [];
-        let y, q, dayBracketsTime, chunkTime = 6;
+        let y,
+          q,
+          dayBracketsTime,
+          chunkTime = 6;
         for (y = 0, q = bracketTimeSlot.length; y < q; y += chunkTime) {
           dayBracketsTime = bracketTimeSlot.slice(y, y + chunkTime);
           dailyBracketsTimeSlots.push(dayBracketsTime);
         }
 
-        console.log(dailyBracketsTimeSlots)
+        console.log(dailyBracketsTimeSlots);
 
         //////// LEFT SHIFT THE HEAVY GAMES IN HOUR SLOTS
-        let timeSlotsCount = 5
+        let timeSlotsCount = 5;
         for (let p = 0; p < dailyBracketsTimeSlots.length; p++) {
           if (timeSlotsCount < 0) {
-            timeSlotsCount = 5
+            timeSlotsCount = 5;
           }
-          let shiftOne = dailyBracketsTimeSlots[p].shift()
+          let shiftOne = dailyBracketsTimeSlots[p].shift();
           dailyBracketsTimeSlots[p].splice(timeSlotsCount, 0, shiftOne);
-          timeSlotsCount--
+          timeSlotsCount--;
         }
 
         /////// SET THE TIME SLOT - TODO
         for (let p = 0; p < dailyBracketsTimeSlots.length; p++) {
-          let dayCount = 0
+          let dayCount = 0;
           for (let a = 0; a < dailyBracketsTimeSlots[p].length; a++) {
             if (typeof dailyBracketsTimeSlots[p][a] != "number") {
-              if (dayCount > 6) dayCount = 0
-              if (dayCount === 0) dailyBracketsTimeSlots[p][a].timeSlot = 9
-              if (dayCount === 1) dailyBracketsTimeSlots[p][a].timeSlot = 10
-              if (dayCount === 2) dailyBracketsTimeSlots[p][a].timeSlot = 11
-              if (dayCount === 3) dailyBracketsTimeSlots[p][a].timeSlot = 12
-              if (dayCount === 4) dailyBracketsTimeSlots[p][a].timeSlot = 1
-              if (dayCount === 5) dailyBracketsTimeSlots[p][a].timeSlot = 2
+              if (dayCount > 6) dayCount = 0;
+              if (dayCount === 0) dailyBracketsTimeSlots[p][a].timeSlot = "09";
+              if (dayCount === 1) dailyBracketsTimeSlots[p][a].timeSlot = "10";
+              if (dayCount === 2) dailyBracketsTimeSlots[p][a].timeSlot = "11";
+              if (dayCount === 3) dailyBracketsTimeSlots[p][a].timeSlot = "12";
+              if (dayCount === 4) dailyBracketsTimeSlots[p][a].timeSlot = "01";
+              if (dayCount === 5) dailyBracketsTimeSlots[p][a].timeSlot = "02";
             }
-            dayCount++
+            dayCount++;
           }
         }
-        console.log(dailyBracketsTimeSlots)
-        let scheduleResult = []
-        let masterObject = dailyBracketsTimeSlots.flat();
-        masterObject.forEach((el, index) => {
-          // console.log('el', el)
-          scheduleResult.push(
-            {
-              id: index,
-              group: el.group,
-              title: `${el.title} - ${el.group} - Match Weight: ${el.totalWeight}`,
-              start: startValueA,
-              end: endValueA,
-              tip: "additional information",
-              color: "rgb(158, 14, 206)",
-              selectedBgColor: "rgba(225, 166, 244, 1)",
-              bgColor: "rgba(225, 166, 244, 0.6)",
-              itemProps: {
-                'data-tip': "anything"
-              }
-            },
-          )
-        })
-        this.setState({ items: scheduleResult });
-        // console.log(dailyBracketsTimeSlots)
+        console.log(dailyBracketsTimeSlots);
 
-      }
+        let scheduleResult = [];
+        let seasonStartDay = "2021-10-02";
+        let masterObject = dailyBracketsTimeSlots.flat();
+        console.log(masterObject);
+        masterObject.forEach((el, index) => {
+          scheduleResult.push({
+            id: index,
+            group: el.group,
+            title: `${el.title} - ${el.group} - Match Weight: ${el.totalWeight}`,
+            // start: moment("2021-10-28 8:00"),
+            // end: moment("2021-10-28 9:00"),
+            start: moment(`${seasonStartDay} ${el.timeSlot}:00`),
+            end: moment("2021-10-28 05:00"),
+
+            // end: endValueA,
+            tip: "additional information",
+            color: "rgb(158, 14, 206)",
+            selectedBgColor: "rgba(225, 166, 244, 1)",
+            bgColor: "rgba(225, 166, 244, 0.6)",
+            itemProps: {
+              "data-tip": "anything",
+            },
+          });
+        });
+        this.setState({ items: scheduleResult });
+        console.log(scheduleResult);
+        // moment("2021-10-02 11:30")
+        // moment(startdate, "DD-MM-YYYY").add(5, 'days')
+      };
       getGameDays(matches);
     });
   }
@@ -330,8 +341,8 @@ class App extends Component {
         canResize={true}
         defaultTimeStart={defaultTimeStart}
         defaultTimeEnd={defaultTimeEnd}
-      // visibleTimeStart={defaultTimeStart}
-      // visibleTimeEnd={defaultTimeEnd}
+        // visibleTimeStart={defaultTimeStart}
+        // visibleTimeEnd={defaultTimeEnd}
       >
         <TimelineHeaders className="sticky">
           <SidebarHeader>
