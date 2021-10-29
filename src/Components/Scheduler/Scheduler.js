@@ -12,6 +12,7 @@ import Timeline, {
   SidebarHeader,
   DateHeader,
 } from "react-calendar-timeline/lib";
+import { isFunction } from "lodash";
 
 var keys = {
   groupIdKey: "id",
@@ -277,17 +278,21 @@ class App extends Component {
 
         /////// SET THE TIME SLOT - TODO
         for (let p = 0; p < dailyBracketsTimeSlots.length; p++) {
+          let dayCount = 0;
           for (let a = 0; a < dailyBracketsTimeSlots[p].length; a++) {
-            // console.log(dailyBracketsTimeSlots[p][a])
-            if (dailyBracketsTimeSlots[p][a] === 0) {
-              dailyBracketsTimeSlots[p][a].timeSlot = "9";
+            if (typeof dailyBracketsTimeSlots[p][a] != "number") {
+              if (dayCount > 6) dayCount = 0;
+              if (dayCount === 0) dailyBracketsTimeSlots[p][a].timeSlot = 9;
+              if (dayCount === 1) dailyBracketsTimeSlots[p][a].timeSlot = 10;
+              if (dayCount === 2) dailyBracketsTimeSlots[p][a].timeSlot = 11;
+              if (dayCount === 3) dailyBracketsTimeSlots[p][a].timeSlot = 12;
+              if (dayCount === 4) dailyBracketsTimeSlots[p][a].timeSlot = 1;
+              if (dayCount === 5) dailyBracketsTimeSlots[p][a].timeSlot = 2;
             }
-            if (dailyBracketsTimeSlots[p][a] === 1) {
-              dailyBracketsTimeSlots[p][a].timeSlot = "10";
-            }
+            dayCount++;
           }
         }
-
+        console.log(dailyBracketsTimeSlots);
         let scheduleResult = [];
         let masterObject = dailyBracketsTimeSlots.flat();
         masterObject.forEach((el, index) => {
@@ -296,7 +301,7 @@ class App extends Component {
             id: index,
             group: el.group,
             title: `${el.title} - ${el.group} - Match Weight: ${el.totalWeight}`,
-            start: startValueA.getTime(9),
+            start: startValueA,
             end: endValueA,
             tip: "additional information",
             color: "rgb(158, 14, 206)",
