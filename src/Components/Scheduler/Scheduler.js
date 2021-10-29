@@ -6,7 +6,6 @@ import moment from "moment";
 // import { MapStateToProps } from "react-redux";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
-import _ from "lodash";
 
 import Timeline, {
   TimelineHeaders,
@@ -31,6 +30,7 @@ var keys = {
 const startMatch = moment("2021-10-02 11:30");
 const startDate = startMatch.format("YYYY/MM/DD, HH:mm");
 const startValueA = moment(startDate);
+moment().add(10, "days").calendar();
 
 const endMatch = moment("2021-10-02 12:30");
 const endDate = endMatch.format("YYYY/MM/DD, HH:mm");
@@ -39,7 +39,7 @@ const endValueA = moment(endDate);
 class App extends Component {
   constructor(props) {
     super(props);
-
+    // This time setup is to default the calendar view, cannot be removed, should be variables
     const defaultTimeStart = moment("2021-10-02 08:00")
       .startOf("hour")
       .toDate();
@@ -47,6 +47,23 @@ class App extends Component {
       .startOf("hour")
       // .add(1, "day")
       .toDate();
+
+    let date = "2021-10-02 11:30";
+    const momentExample = moment(date, "YYYY-DD-MM hh:mm:ss")
+      .add(7, "da")
+      .format("YYYY/DD/MM hh:mm");
+    console.log("mem", momentExample);
+
+    const getDate = (arr) => {
+      //Example A
+      const startMatch = moment("2021-10-02 11:30");
+      const startDate = startMatch.format("YYYY/MM/DD, HH:mm");
+      const startValueA = moment(startDate);
+
+      const endMatch = moment("2021-10-02 12:30");
+      const endDate = endMatch.format("YYYY/MM/DD, HH:mm");
+      const endValueA = moment(endDate);
+    };
 
     this.state = {
       groups: [],
@@ -82,6 +99,7 @@ class App extends Component {
       };
       getGroups(matches);
 
+      /////// START THE SCHDULE FUNCTION
       const getGameDays = (arr) => {
         const allMatches = [];
         const days = [];
@@ -112,10 +130,7 @@ class App extends Component {
           }
         }
 
-        // step 1 = count all the family ID's (team + counted family ID)
-        // step 2 = sum teams and counted family ID to get team weight
-        // step 3 = combine team a + team b to get match weight
-
+        /// REDUCE INDIVIDUAL FAMILY WEIGHT VALUES TO A TEAM WEIGHT
         const weightTeams = (arr) => {
           const familyWeight = arr.reduce((acc, { familyId }) => {
             if (acc[familyId]) acc[familyId]++;
@@ -132,11 +147,9 @@ class App extends Component {
           return teamWeight;
         };
         const objWithTeamWeight = weightTeams(gameWeights);
-        // console.log(objWithTeamWeight);
 
+        ////// COMBINE TEAM WEIGHTS TO BE A MATCH WEIGHT
         for (let y = 0; y < allMatches.length; y++) {
-          // console.log(objWithTeamWeight[allMatches[y].teamOneId]);
-          // console.log(objWithTeamWeight[allMatches[y].teamTwoId]);
           allMatches[y].totalWeight =
             (objWithTeamWeight[allMatches[y].teamOneId] === undefined
               ? 0
@@ -145,8 +158,8 @@ class App extends Component {
               ? 0
               : objWithTeamWeight[allMatches[y].teamTwoId]);
         }
-        //
-        // Note, hard set day values 8 and 7 need to be refactored
+
+        ////// ORGANIZE THE MATCHES BY DAYS AND GROUPS
         const matchDaysByGroup = [];
         for (let x = 0; x <= 7; x++) {
           let match = allMatches.filter(
@@ -159,6 +172,8 @@ class App extends Component {
             matchDaysByGroup.push(daysByGroup);
           }
         }
+
+        ////// CHUNK THE ARRAY INTO DAYS PLAYED, this step might not be needed
         const dailyBrackets = [];
         let i,
           j,
@@ -168,7 +183,7 @@ class App extends Component {
           dayBrackets = matchDaysByGroup.slice(i, i + chunk);
           dailyBrackets.push(dayBrackets);
         }
-        // console.log(dailyBrackets);
+
         //////////SORT BY MATCHES TOTAL WEIGHT
         const sortWeightBracket = (arr) => {
           for (let i = 0; i < arr.length; i++) {
@@ -183,7 +198,6 @@ class App extends Component {
         sortWeightBracket(dailyBrackets);
 
         ///////SUM ALL MATCHES WEIGHT TO GET BRACKET WEIGHT
-
         const getBracketPerDayWeight = (arr) => {
           for (let i = 0; i < arr.length; i++) {
             for (let j = 0; j < arr[i].length; j++) {
@@ -208,14 +222,95 @@ class App extends Component {
         // dayBrackets.map((el)=>{
         //     el.forEach((weight)=>{
 
-        //         // const weights = weight.totalWeight
-        //         // const sumBracketsByDay = _.sum(weights);
-        //         // console.log(sumBracketsByDay)
-        //     })
-        // })
+        /////////////// SET BRACKETS BY DAY DESCENDING
+        const dayWeightSameBracket = (arr) => {
+          for (let i = 0; i < arr.length; i++) {
+            arr[i].sort((a, b) => {
+              return a[a.length - 1].bracketWeight >
+                b[b.length - 1].bracketWeight
+                ? -1
+                : 1;
+            });
+          }
+        };
+
+        dayWeightSameBracket(dailyBrackets);
+
+        /////// ADD TIME SLOTS
+        let bracketTimeSlot = [];
+        for (let p = 0; p < dailyBrackets.length; p++) {
+          for (let a = 0; a < dailyBrackets[p].length; a++) {
+            dailyBrackets[p][a].pop();
+            for (let b = 0; b <= 5; b++) {
+              bracketTimeSlot.push(
+                dailyBrackets[p][a][b] === undefined
+                  ? b
+                  : dailyBrackets[p][a][b]
+              );
+            }
+          }
+        }
+
+        ///// SET TIME SLOT HOURS
+        const dailyBracketsTimeSlots = [];
+        let y,
+          q,
+          dayBracketsTime,
+          chunkTime = 6;
+        for (y = 0, q = bracketTimeSlot.length; y < q; y += chunkTime) {
+          dayBracketsTime = bracketTimeSlot.slice(y, y + chunkTime);
+          dailyBracketsTimeSlots.push(dayBracketsTime);
+        }
+
+        console.log(dailyBracketsTimeSlots);
+
+        //////// LEFT SHIFT THE HEAVY GAMES IN HOUR SLOTS
+        let timeSlotsCount = 5;
+        for (let p = 0; p < dailyBracketsTimeSlots.length; p++) {
+          if (timeSlotsCount < 0) {
+            timeSlotsCount = 5;
+          }
+          let shiftOne = dailyBracketsTimeSlots[p].shift();
+          dailyBracketsTimeSlots[p].splice(timeSlotsCount, 0, shiftOne);
+          timeSlotsCount--;
+        }
+
+        /////// SET THE TIME SLOT - TODO
+        for (let p = 0; p < dailyBracketsTimeSlots.length; p++) {
+          for (let a = 0; a < dailyBracketsTimeSlots[p].length; a++) {
+            // console.log(dailyBracketsTimeSlots[p][a])
+            if (dailyBracketsTimeSlots[p][a] === 0) {
+              dailyBracketsTimeSlots[p][a].timeSlot = "9";
+            }
+            if (dailyBracketsTimeSlots[p][a] === 1) {
+              dailyBracketsTimeSlots[p][a].timeSlot = "10";
+            }
+          }
+        }
+
+        let scheduleResult = [];
+        let masterObject = dailyBracketsTimeSlots.flat();
+        masterObject.forEach((el, index) => {
+          // console.log('el', el)
+          scheduleResult.push({
+            id: index,
+            group: el.group,
+            title: `${el.title} - ${el.group} - Match Weight: ${el.totalWeight}`,
+            start: startValueA.getTime(9),
+            end: endValueA,
+            tip: "additional information",
+            color: "rgb(158, 14, 206)",
+            selectedBgColor: "rgba(225, 166, 244, 1)",
+            bgColor: "rgba(225, 166, 244, 0.6)",
+            itemProps: {
+              "data-tip": "anything",
+            },
+          });
+        });
+        this.setState({ items: scheduleResult });
+        // console.log(dailyBracketsTimeSlots)
       };
       getGameDays(matches);
-      // this.setState({ items: itemsSched });
     });
   }
 
