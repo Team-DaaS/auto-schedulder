@@ -12,7 +12,7 @@ import Timeline, {
   SidebarHeader,
   DateHeader,
 } from "react-calendar-timeline/lib";
-import { isFunction } from "lodash";
+import { add, isFunction } from "lodash";
 
 var keys = {
   groupIdKey: "id",
@@ -41,10 +41,10 @@ class App extends Component {
   constructor(props) {
     super(props);
     // This time setup is to default the calendar view, cannot be removed, should be variables
-    const defaultTimeStart = moment("2021-10-02 08:00")
+    const defaultTimeStart = moment("2021-10-30 08:00")
       .startOf("hour")
       .toDate();
-    const defaultTimeEnd = moment("2021-10-02 17:00")
+    const defaultTimeEnd = moment("2021-10-30 17:00")
       .startOf("hour")
       // .add(1, "day")
       .toDate();
@@ -286,23 +286,82 @@ class App extends Component {
               if (dayCount === 1) dailyBracketsTimeSlots[p][a].timeSlot = 10;
               if (dayCount === 2) dailyBracketsTimeSlots[p][a].timeSlot = 11;
               if (dayCount === 3) dailyBracketsTimeSlots[p][a].timeSlot = 12;
-              if (dayCount === 4) dailyBracketsTimeSlots[p][a].timeSlot = 1;
-              if (dayCount === 5) dailyBracketsTimeSlots[p][a].timeSlot = 2;
+              if (dayCount === 4) dailyBracketsTimeSlots[p][a].timeSlot = 13;
+              if (dayCount === 5) dailyBracketsTimeSlots[p][a].timeSlot = 14;
             }
             dayCount++;
           }
         }
         console.log(dailyBracketsTimeSlots);
+
         let scheduleResult = [];
+        let seasonStartDay = moment("2021-10-30 00:00");
+        // seasonStartDay.add(3, "hours");//moment().add(1, "days")
+        console.log(seasonStartDay);
         let masterObject = dailyBracketsTimeSlots.flat();
+        console.log(masterObject);
+        console.log(startValueA);
         masterObject.forEach((el, index) => {
-          // console.log('el', el)
           scheduleResult.push({
             id: index,
             group: el.group,
             title: `${el.title} - ${el.group} - Match Weight: ${el.totalWeight}`,
-            start: startValueA,
-            end: endValueA,
+            dayPlay: el.dayPlay,
+            timeSlot: el.timeSlot,
+            start: moment(
+              moment(
+                moment(seasonStartDay).add(
+                  el.dayPlay === 0
+                    ? 0
+                    : el.dayPlay === 1
+                    ? 7
+                    : el.dayPlay === 2
+                    ? 14
+                    : el.dayPlay === 3
+                    ? 21
+                    : el.dayPlay === 4
+                    ? 28
+                    : el.dayPlay === 5
+                    ? 35
+                    : el.dayPlay === 6
+                    ? 42
+                    : el.dayPlay === 7
+                    ? 49
+                    : el.dayPlay === 8
+                    ? 56
+                    : null,
+                  "days"
+                )
+              )
+                .add(el.timeSlot, "hours")
+                .format("YYYY/MM/DD, HH:mm")
+            ),
+            end: moment(
+              moment(
+                moment(seasonStartDay).add(
+                  el.dayPlay === 0
+                    ? 0
+                    : el.dayPlay === 1
+                    ? 7
+                    : el.dayPlay === 2
+                    ? 14
+                    : el.dayPlay === 3
+                    ? 21
+                    : el.dayPlay === 4
+                    ? 28
+                    : el.dayPlay === 5
+                    ? 35
+                    : el.dayPlay === 6
+                    ? 42
+                    : el.dayPlay === 7
+                    ? 49
+                    : el.dayPlay === 8
+                    ? 56
+                    : null,
+                  "days"
+                )
+              ).add(el.timeSlot + 1, "hours")
+            ),
             tip: "additional information",
             color: "rgb(158, 14, 206)",
             selectedBgColor: "rgba(225, 166, 244, 1)",
@@ -313,7 +372,9 @@ class App extends Component {
           });
         });
         this.setState({ items: scheduleResult });
-        // console.log(dailyBracketsTimeSlots)
+        console.log(scheduleResult);
+        // moment("2021-10-02 11:30")
+        // moment(startdate, "DD-MM-YYYY").add(5, 'days')
       };
       getGameDays(matches);
     });
