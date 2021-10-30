@@ -41,10 +41,10 @@ class App extends Component {
   constructor(props) {
     super(props);
     // This time setup is to default the calendar view, cannot be removed, should be variables
-    const defaultTimeStart = moment("2021-10-29 08:00")
+    const defaultTimeStart = moment("2021-10-30 08:00")
       .startOf("hour")
       .toDate();
-    const defaultTimeEnd = moment("2021-10-29 17:00")
+    const defaultTimeEnd = moment("2021-10-30 17:00")
       .startOf("hour")
       // .add(1, "day")
       .toDate();
@@ -288,8 +288,8 @@ class App extends Component {
         console.log(dailyBracketsTimeSlots);
 
         let scheduleResult = [];
-        let seasonStartDay = moment().add(1, "days");
-        // seasonStartDay.add(3, "hours");
+        let seasonStartDay = moment("2021-10-30 00:00");
+        // seasonStartDay.add(3, "hours");//moment().add(1, "days")
         console.log(seasonStartDay);
         let masterObject = dailyBracketsTimeSlots.flat();
         console.log(masterObject);
