@@ -41,7 +41,11 @@ class App extends Component {
   constructor(props) {
     super(props);
     // This time setup is to default the calendar view, cannot be removed, should be variables
+<<<<<<< HEAD
     const defaultTimeStart = moment("2021-10-30 08:00")
+=======
+    const defaultTimeStart = moment("2021-10-02 08:00")
+>>>>>>> main
       .startOf("hour")
       .toDate();
     const defaultTimeEnd = moment("2021-10-30 17:00")
@@ -215,6 +219,13 @@ class App extends Component {
         };
 
         getBracketPerDayWeight(dailyBrackets);
+        console.log(dailyBrackets);
+
+        debugger;
+
+        /////////////////////////////
+        // dayBrackets.map((el)=>{
+        //     el.forEach((weight)=>{
 
         /////////////// SET BRACKETS BY DAY DESCENDING
         const dayWeightSameBracket = (arr) => {
@@ -279,26 +290,40 @@ class App extends Component {
               if (dayCount === 1) dailyBracketsTimeSlots[p][a].timeSlot = 10;
               if (dayCount === 2) dailyBracketsTimeSlots[p][a].timeSlot = 11;
               if (dayCount === 3) dailyBracketsTimeSlots[p][a].timeSlot = 12;
+<<<<<<< HEAD
               if (dayCount === 4) dailyBracketsTimeSlots[p][a].timeSlot = 13;
               if (dayCount === 5) dailyBracketsTimeSlots[p][a].timeSlot = 14;
+=======
+              if (dayCount === 4) dailyBracketsTimeSlots[p][a].timeSlot = 1;
+              if (dayCount === 5) dailyBracketsTimeSlots[p][a].timeSlot = 2;
+>>>>>>> main
             }
             dayCount++;
           }
         }
         console.log(dailyBracketsTimeSlots);
+<<<<<<< HEAD
 
         let scheduleResult = [];
         let seasonStartDay = moment("2021-10-30 00:00");
         // seasonStartDay.add(3, "hours");//moment().add(1, "days")
         console.log(seasonStartDay);
+=======
+        let scheduleResult = [];
+>>>>>>> main
         let masterObject = dailyBracketsTimeSlots.flat();
         console.log(masterObject);
         console.log(startValueA);
         masterObject.forEach((el, index) => {
+<<<<<<< HEAD
+=======
+          // console.log('el', el)
+>>>>>>> main
           scheduleResult.push({
             id: index,
             group: el.group,
             title: `${el.title} - ${el.group} - Match Weight: ${el.totalWeight}`,
+<<<<<<< HEAD
             dayPlay: el.dayPlay,
             timeSlot: el.timeSlot,
             start: moment(
@@ -355,6 +380,10 @@ class App extends Component {
                 )
               ).add(el.timeSlot + 1, "hours")
             ),
+=======
+            start: startValueA,
+            end: endValueA,
+>>>>>>> main
             tip: "additional information",
             color: "rgb(158, 14, 206)",
             selectedBgColor: "rgba(225, 166, 244, 1)",
@@ -365,9 +394,13 @@ class App extends Component {
           });
         });
         this.setState({ items: scheduleResult });
+<<<<<<< HEAD
         console.log(scheduleResult);
         // moment("2021-10-02 11:30")
         // moment(startdate, "DD-MM-YYYY").add(5, 'days')
+=======
+        // console.log(dailyBracketsTimeSlots)
+>>>>>>> main
       };
       getGameDays(matches);
     });
