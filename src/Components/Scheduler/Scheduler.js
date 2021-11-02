@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Box } from "@mui/system";
-import { Container } from "@mui/material";
+import { Container, Button } from "@mui/material";
 import moment from "moment";
 // import { MapStateToProps } from "react-redux";
 import { connect } from "react-redux";
@@ -44,10 +44,7 @@ class App extends Component {
     const defaultTimeStart = moment("2021-10-30 08:00")
       .startOf("hour")
       .toDate();
-    const defaultTimeEnd = moment("2021-10-30 17:00")
-      .startOf("hour")
-      // .add(1, "day")
-      .toDate();
+    const defaultTimeEnd = moment("2021-10-30 17:00").startOf("hour").toDate();
 
     let date = "2021-10-02 11:30";
     const momentExample = moment(date, "YYYY-DD-MM hh:mm:ss")
@@ -217,8 +214,6 @@ class App extends Component {
         getBracketPerDayWeight(dailyBrackets);
         console.log(dailyBrackets);
 
-        debugger;
-
         /////////////////////////////
         // dayBrackets.map((el)=>{
         //     el.forEach((weight)=>{
@@ -387,37 +382,43 @@ class App extends Component {
     const { groups, items, defaultTimeStart, defaultTimeEnd } = this.state;
     // console.log('items', items)
     return (
-      <Timeline
-        groups={groups}
-        items={items}
-        keys={keys}
-        sidebarContent={<div>null</div>}
-        itemsSorted
-        itemTouchSendsClick={false}
-        stackItems
-        itemHeightRatio={0.75}
-        showCursorLine
-        canMove={false}
-        canResize={true}
-        defaultTimeStart={defaultTimeStart}
-        defaultTimeEnd={defaultTimeEnd}
-        // visibleTimeStart={defaultTimeStart}
-        // visibleTimeEnd={defaultTimeEnd}
-      >
-        <TimelineHeaders className="sticky">
-          <SidebarHeader>
-            {({ getRootProps }) => {
-              return (
-                <div className="auto-scheduler-header" {...getRootProps()}>
-                  Location - Brackets
-                </div>
-              );
-            }}
-          </SidebarHeader>
-          <DateHeader unit="primaryHeader" />
-          <DateHeader />
-        </TimelineHeaders>
-      </Timeline>
+      <Box>
+        <Box m={3} sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Button variant="contained">Prev</Button>
+          <Button variant="contained">Next</Button>
+        </Box>
+        <Timeline
+          groups={groups}
+          items={items}
+          keys={keys}
+          sidebarContent={<div>null</div>}
+          itemsSorted
+          itemTouchSendsClick={false}
+          stackItems
+          itemHeightRatio={0.75}
+          showCursorLine
+          canMove={false}
+          canResize={true}
+          defaultTimeStart={defaultTimeStart}
+          defaultTimeEnd={defaultTimeEnd}
+          // visibleTimeStart={defaultTimeStart}
+          // visibleTimeEnd={defaultTimeEnd}
+        >
+          <TimelineHeaders className="sticky">
+            <SidebarHeader>
+              {({ getRootProps }) => {
+                return (
+                  <div className="auto-scheduler-header" {...getRootProps()}>
+                    Location - Brackets
+                  </div>
+                );
+              }}
+            </SidebarHeader>
+            <DateHeader unit="primaryHeader" />
+            <DateHeader />
+          </TimelineHeaders>
+        </Timeline>
+      </Box>
     );
   }
 }
