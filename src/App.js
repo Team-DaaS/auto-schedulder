@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { updateUserId } from "./Redux/reducer";
 import axios from "axios";
+import Loading from './Components/Loading/Loader';
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function App() {
       <NavBar />
       {routes}
       <Footer />
+      <Loading />
     </Box>
   );
 }

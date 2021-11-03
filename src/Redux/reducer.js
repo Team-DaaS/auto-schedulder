@@ -1,9 +1,24 @@
 const initialState = {
   userId: 0,
+  loading: false,
 };
 
 const UPDATE_USER_ID = "UPDATE_USER_ID";
 const CLEAR_REDUX_STATE = "CLEAR_REDUX_STORE";
+const SHOW_LOADER = 'SHOW_LOADER';
+const HIDE_LOADER = 'HIDE_LOADER';
+
+export const showLoader = () => {
+  return {
+    type: SHOW_LOADER,
+  }
+}
+
+export const hideLoader = () => {
+  return {
+    type: HIDE_LOADER,
+  }
+}
 
 export const updateUserId = (userid) => {
   return {
@@ -20,6 +35,18 @@ export const clearReduxState = () => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case SHOW_LOADER: {
+      return {
+        ...state,
+        loading: true
+      }
+    }
+    case HIDE_LOADER: {
+      return {
+        ...state,
+        loading: false
+      }
+    }
     case UPDATE_USER_ID: {
       return {
         ...state,

@@ -4,6 +4,7 @@ import { Box } from "@mui/system";
 import { Container, Button } from "@mui/material";
 import moment from "moment";
 // import { MapStateToProps } from "react-redux";
+import { showLoader, hideLoader } from '../../Redux/reducer';
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 
@@ -27,41 +28,12 @@ var keys = {
   groupLabelKey: "title",
 };
 
-//Example A
-const startMatch = moment("2021-10-02 11:30");
-const startDate = startMatch.format("YYYY/MM/DD, HH:mm");
-const startValueA = moment(startDate);
-moment().add(10, "days").calendar();
-
-const endMatch = moment("2021-10-02 12:30");
-const endDate = endMatch.format("YYYY/MM/DD, HH:mm");
-const endValueA = moment(endDate);
-
 class App extends Component {
   constructor(props) {
     super(props);
-    // This time setup is to default the calendar view, cannot be removed, should be variables
-    const defaultTimeStart = moment("2021-10-30 08:00")
-      .startOf("hour")
-      .toDate();
-    const defaultTimeEnd = moment("2021-10-30 17:00").startOf("hour").toDate();
-
-    let date = "2021-10-02 11:30";
-    const momentExample = moment(date, "YYYY-DD-MM hh:mm:ss")
-      .add(7, "da")
-      .format("YYYY/DD/MM hh:mm");
-    console.log("mem", momentExample);
-
-    const getDate = (arr) => {
-      //Example A
-      const startMatch = moment("2021-10-02 11:30");
-      const startDate = startMatch.format("YYYY/MM/DD, HH:mm");
-      const startValueA = moment(startDate);
-
-      const endMatch = moment("2021-10-02 12:30");
-      const endDate = endMatch.format("YYYY/MM/DD, HH:mm");
-      const endValueA = moment(endDate);
-    };
+    /////// This time setup is to default the calendar view, cannot be removed, should be pulled in by the DB in the future
+    const defaultTimeStart = moment("2021-08-28 08:00").startOf("hour").toDate();
+    const defaultTimeEnd = moment("2021-08-28 17:00").startOf("hour").toDate();
 
     this.state = {
       groups: [],
@@ -74,7 +46,31 @@ class App extends Component {
     // console.log("user id:", props.userId);
   }
 
+  moreHandle = (dayStart, dayEnd) => {
+    const dayStartForward = moment(dayStart).add(+ 7, "days")
+    const dayEndForward = moment(dayEnd).add(+ 7, "days")
+    console.log(dayStartForward, dayEndForward)
+    this.setState({ defaultTimeStart: dayStartForward })
+    this.setState({ defaultTimeEnd: dayEndForward })
+    this.updateGroups(this.state.groups)
+  }
+
+  lessHandle = (dayStart, dayEnd) => {
+    const dayStartForward = moment(dayStart).add(- 7, "days")
+    const dayEndForward = moment(dayEnd).add(- 7, "days")
+    console.log(dayStartForward, dayEndForward)
+    this.setState({ defaultTimeStart: dayStartForward })
+    this.setState({ defaultTimeEnd: dayEndForward })
+    this.updateGroups(this.state.groups)
+  }
+
+
+  updateGroups = (groups) => {
+    this.setState({ groups })
+  }
+
   componentDidMount() {
+    this.props.showLoader()
     axios.get("/api/teams").then((response) => {
       this.setState({ matches: response.data.matches });
       this.setState({ teamWeight: response.data.gameWeights });
@@ -116,8 +112,6 @@ class App extends Component {
                 title: `${arr[i][j][k][0][0].teamName} vs ${arr[i][j][k][1][0].teamName}`,
                 teamOneId: arr[i][j][k][0][0].teamId,
                 teamTwoId: arr[i][j][k][1][0].teamId,
-                start: startValueA,
-                end: endValueA,
                 color: "rgb(158, 14, 206)",
                 selectedBgColor: "rgba(225, 166, 244, 1)",
                 bgColor: "rgba(225, 166, 244, 0.6)",
@@ -212,11 +206,6 @@ class App extends Component {
         };
 
         getBracketPerDayWeight(dailyBrackets);
-        console.log(dailyBrackets);
-
-        /////////////////////////////
-        // dayBrackets.map((el)=>{
-        //     el.forEach((weight)=>{
 
         /////////////// SET BRACKETS BY DAY DESCENDING
         const dayWeightSameBracket = (arr) => {
@@ -258,8 +247,6 @@ class App extends Component {
           dailyBracketsTimeSlots.push(dayBracketsTime);
         }
 
-        console.log(dailyBracketsTimeSlots);
-
         //////// LEFT SHIFT THE HEAVY GAMES IN HOUR SLOTS
         let timeSlotsCount = 5;
         for (let p = 0; p < dailyBracketsTimeSlots.length; p++) {
@@ -287,15 +274,11 @@ class App extends Component {
             dayCount++;
           }
         }
-        console.log(dailyBracketsTimeSlots);
 
         let scheduleResult = [];
-        let seasonStartDay = moment("2021-10-30 00:00");
-        // seasonStartDay.add(3, "hours");//moment().add(1, "days")
-        console.log(seasonStartDay);
+        let seasonStartDay = moment("2021-08-28 00:00");
         let masterObject = dailyBracketsTimeSlots.flat();
-        console.log(masterObject);
-        console.log(startValueA);
+
         masterObject.forEach((el, index) => {
           scheduleResult.push({
             id: index,
@@ -309,22 +292,22 @@ class App extends Component {
                   el.dayPlay === 0
                     ? 0
                     : el.dayPlay === 1
-                    ? 7
-                    : el.dayPlay === 2
-                    ? 14
-                    : el.dayPlay === 3
-                    ? 21
-                    : el.dayPlay === 4
-                    ? 28
-                    : el.dayPlay === 5
-                    ? 35
-                    : el.dayPlay === 6
-                    ? 42
-                    : el.dayPlay === 7
-                    ? 49
-                    : el.dayPlay === 8
-                    ? 56
-                    : null,
+                      ? 7
+                      : el.dayPlay === 2
+                        ? 14
+                        : el.dayPlay === 3
+                          ? 21
+                          : el.dayPlay === 4
+                            ? 28
+                            : el.dayPlay === 5
+                              ? 35
+                              : el.dayPlay === 6
+                                ? 42
+                                : el.dayPlay === 7
+                                  ? 49
+                                  : el.dayPlay === 8
+                                    ? 56
+                                    : null,
                   "days"
                 )
               )
@@ -337,22 +320,22 @@ class App extends Component {
                   el.dayPlay === 0
                     ? 0
                     : el.dayPlay === 1
-                    ? 7
-                    : el.dayPlay === 2
-                    ? 14
-                    : el.dayPlay === 3
-                    ? 21
-                    : el.dayPlay === 4
-                    ? 28
-                    : el.dayPlay === 5
-                    ? 35
-                    : el.dayPlay === 6
-                    ? 42
-                    : el.dayPlay === 7
-                    ? 49
-                    : el.dayPlay === 8
-                    ? 56
-                    : null,
+                      ? 7
+                      : el.dayPlay === 2
+                        ? 14
+                        : el.dayPlay === 3
+                          ? 21
+                          : el.dayPlay === 4
+                            ? 28
+                            : el.dayPlay === 5
+                              ? 35
+                              : el.dayPlay === 6
+                                ? 42
+                                : el.dayPlay === 7
+                                  ? 49
+                                  : el.dayPlay === 8
+                                    ? 56
+                                    : null,
                   "days"
                 )
               ).add(el.timeSlot + 1, "hours")
@@ -367,9 +350,7 @@ class App extends Component {
           });
         });
         this.setState({ items: scheduleResult });
-        console.log(scheduleResult);
-        // moment("2021-10-02 11:30")
-        // moment(startdate, "DD-MM-YYYY").add(5, 'days')
+        this.props.hideLoader()
       };
       getGameDays(matches);
     });
@@ -380,45 +361,48 @@ class App extends Component {
     //     return <Redirect to="/login" />;
     // }
     const { groups, items, defaultTimeStart, defaultTimeEnd } = this.state;
-    // console.log('items', items)
+
     return (
-      <Box>
+      <div>
+        {groups.length != 0 ? (
+          <Timeline
+            groups={groups}
+            items={items}
+            keys={keys}
+            sidebarContent={<div>null</div>}
+            itemsSorted
+            itemTouchSendsClick={false}
+            stackItems
+            itemHeightRatio={0.75}
+            showCursorLine
+            canMove={false}
+            canResize={true}
+            // defaultTimeStart={defaultTimeStart}
+            // defaultTimeEnd={defaultTimeEnd}
+            visibleTimeStart={defaultTimeStart}
+            visibleTimeEnd={defaultTimeEnd}
+          >
+            <TimelineHeaders className="sticky">
+              <SidebarHeader>
+                {({ getRootProps }) => {
+                  return (
+                    <div className="auto-scheduler-header" {...getRootProps()}>
+                      Location - Brackets
+                    </div>
+                  );
+                }}
+              </SidebarHeader>
+              <DateHeader unit="primaryHeader" />
+              <DateHeader />
+            </TimelineHeaders>
+          </Timeline>
+        ) : (<div></div>)}
+        
         <Box m={3} sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Button variant="contained">Prev</Button>
-          <Button variant="contained">Next</Button>
+          <Button onClick={() => this.lessHandle(defaultTimeStart, defaultTimeEnd)} variant="contained">&#60; Previous Week</Button>
+          <Button onClick={() => this.moreHandle(defaultTimeStart, defaultTimeEnd)} variant="contained">Next Week &#x3e;</Button>
         </Box>
-        <Timeline
-          groups={groups}
-          items={items}
-          keys={keys}
-          sidebarContent={<div>null</div>}
-          itemsSorted
-          itemTouchSendsClick={false}
-          stackItems
-          itemHeightRatio={0.75}
-          showCursorLine
-          canMove={false}
-          canResize={true}
-          defaultTimeStart={defaultTimeStart}
-          defaultTimeEnd={defaultTimeEnd}
-          // visibleTimeStart={defaultTimeStart}
-          // visibleTimeEnd={defaultTimeEnd}
-        >
-          <TimelineHeaders className="sticky">
-            <SidebarHeader>
-              {({ getRootProps }) => {
-                return (
-                  <div className="auto-scheduler-header" {...getRootProps()}>
-                    Location - Brackets
-                  </div>
-                );
-              }}
-            </SidebarHeader>
-            <DateHeader unit="primaryHeader" />
-            <DateHeader />
-          </TimelineHeaders>
-        </Timeline>
-      </Box>
+      </div>
     );
   }
 }
@@ -429,4 +413,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, {showLoader, hideLoader} )(App);
