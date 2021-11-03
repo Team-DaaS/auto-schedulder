@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   Box,
   Grid,
-  Link,
   Button,
   MenuItem,
   Select,
@@ -11,6 +10,7 @@ import {
 } from "@mui/material";
 import { Alert } from "@mui/material";
 import axios from "axios";
+import { Link } from "react-router-dom";
 // import { Button } from "@mui/material";
 
 const ContactForm = () => {
@@ -132,6 +132,8 @@ const ContactForm = () => {
           size="large"
           variant="contained"
           type="submit"
+          component={Link}
+          to="/Import"
         >
           Register
         </Button>
