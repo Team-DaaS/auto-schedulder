@@ -68,7 +68,6 @@ const Home = () => {
           </Box>
         </Container>
       </Box>
-      <Box>Segundo Box</Box>
     </Box>
   );
 };
