@@ -4,7 +4,7 @@ import { Box } from "@mui/system";
 import { Container } from "@mui/material";
 import { Typography } from "@mui/material";
 
-const Register = () => {
+const Register = (props) => {
   return (
     <Box>
       <Box mt={5} mb={5}>
@@ -13,7 +13,7 @@ const Register = () => {
             Register
           </Typography>
           <Box mt={4}>
-            <RegisterForm />
+            <RegisterForm history={props.history} />
           </Box>
         </Container>
       </Box>

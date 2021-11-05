@@ -5,7 +5,7 @@ const session = require("express-session");
 
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env;
 const { register, login, logout, getUser } = require("./Controller/authCtrl");
-const { getTeams } = require("./Controller/autoSched")
+const { getTeams } = require("./Controller/autoSched");
 const app = express();
 
 app.use(express.json());
@@ -39,10 +39,10 @@ app.delete("/api/logout", logout);
 app.post("/api/login", login);
 
 //get teams
-app.get('/api/teams', getTeams);
+app.get("/api/teams", getTeams);
 
 //Logged in users
 app.get("/auth/user", getUser),
   app.listen(SERVER_PORT, () =>
     console.log(`Server running on Port ${SERVER_PORT}`)
-);
+  );
