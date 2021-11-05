@@ -12,7 +12,7 @@ const Roster = () => {
   return (
     <Box>
       <Container>
-        <Box p={4}>Roster</Box>
+        <Box p={4}>PDF - Coming Soon!</Box>
       </Container>
     </Box>
   );
