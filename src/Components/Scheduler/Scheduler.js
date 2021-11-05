@@ -4,7 +4,7 @@ import { Box } from "@mui/system";
 import { Container, Button } from "@mui/material";
 import moment from "moment";
 // import { MapStateToProps } from "react-redux";
-import { showLoader, hideLoader } from '../../Redux/reducer';
+import { showLoader, hideLoader } from "../../Redux/reducer";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 
@@ -32,7 +32,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     /////// This time setup is to default the calendar view, cannot be removed, should be pulled in by the DB in the future
-    const defaultTimeStart = moment("2021-08-28 08:00").startOf("hour").toDate();
+    const defaultTimeStart = moment("2021-08-28 08:00")
+      .startOf("hour")
+      .toDate();
     const defaultTimeEnd = moment("2021-08-28 17:00").startOf("hour").toDate();
 
     this.state = {
@@ -47,30 +49,29 @@ class App extends Component {
   }
 
   moreHandle = (dayStart, dayEnd) => {
-    const dayStartForward = moment(dayStart).add(+ 7, "days")
-    const dayEndForward = moment(dayEnd).add(+ 7, "days")
-    console.log(dayStartForward, dayEndForward)
-    this.setState({ defaultTimeStart: dayStartForward })
-    this.setState({ defaultTimeEnd: dayEndForward })
-    this.updateGroups(this.state.groups)
-  }
+    const dayStartForward = moment(dayStart).add(+7, "days");
+    const dayEndForward = moment(dayEnd).add(+7, "days");
+    console.log(dayStartForward, dayEndForward);
+    this.setState({ defaultTimeStart: dayStartForward });
+    this.setState({ defaultTimeEnd: dayEndForward });
+    this.updateGroups(this.state.groups);
+  };
 
   lessHandle = (dayStart, dayEnd) => {
-    const dayStartForward = moment(dayStart).add(- 7, "days")
-    const dayEndForward = moment(dayEnd).add(- 7, "days")
-    console.log(dayStartForward, dayEndForward)
-    this.setState({ defaultTimeStart: dayStartForward })
-    this.setState({ defaultTimeEnd: dayEndForward })
-    this.updateGroups(this.state.groups)
-  }
-
+    const dayStartForward = moment(dayStart).add(-7, "days");
+    const dayEndForward = moment(dayEnd).add(-7, "days");
+    console.log(dayStartForward, dayEndForward);
+    this.setState({ defaultTimeStart: dayStartForward });
+    this.setState({ defaultTimeEnd: dayEndForward });
+    this.updateGroups(this.state.groups);
+  };
 
   updateGroups = (groups) => {
-    this.setState({ groups })
-  }
+    this.setState({ groups });
+  };
 
   componentDidMount() {
-    this.props.showLoader()
+    this.props.showLoader();
     axios.get("/api/teams").then((response) => {
       this.setState({ matches: response.data.matches });
       this.setState({ teamWeight: response.data.gameWeights });
@@ -292,22 +293,22 @@ class App extends Component {
                   el.dayPlay === 0
                     ? 0
                     : el.dayPlay === 1
-                      ? 7
-                      : el.dayPlay === 2
-                        ? 14
-                        : el.dayPlay === 3
-                          ? 21
-                          : el.dayPlay === 4
-                            ? 28
-                            : el.dayPlay === 5
-                              ? 35
-                              : el.dayPlay === 6
-                                ? 42
-                                : el.dayPlay === 7
-                                  ? 49
-                                  : el.dayPlay === 8
-                                    ? 56
-                                    : null,
+                    ? 7
+                    : el.dayPlay === 2
+                    ? 14
+                    : el.dayPlay === 3
+                    ? 21
+                    : el.dayPlay === 4
+                    ? 28
+                    : el.dayPlay === 5
+                    ? 35
+                    : el.dayPlay === 6
+                    ? 42
+                    : el.dayPlay === 7
+                    ? 49
+                    : el.dayPlay === 8
+                    ? 56
+                    : null,
                   "days"
                 )
               )
@@ -320,22 +321,22 @@ class App extends Component {
                   el.dayPlay === 0
                     ? 0
                     : el.dayPlay === 1
-                      ? 7
-                      : el.dayPlay === 2
-                        ? 14
-                        : el.dayPlay === 3
-                          ? 21
-                          : el.dayPlay === 4
-                            ? 28
-                            : el.dayPlay === 5
-                              ? 35
-                              : el.dayPlay === 6
-                                ? 42
-                                : el.dayPlay === 7
-                                  ? 49
-                                  : el.dayPlay === 8
-                                    ? 56
-                                    : null,
+                    ? 7
+                    : el.dayPlay === 2
+                    ? 14
+                    : el.dayPlay === 3
+                    ? 21
+                    : el.dayPlay === 4
+                    ? 28
+                    : el.dayPlay === 5
+                    ? 35
+                    : el.dayPlay === 6
+                    ? 42
+                    : el.dayPlay === 7
+                    ? 49
+                    : el.dayPlay === 8
+                    ? 56
+                    : null,
                   "days"
                 )
               ).add(el.timeSlot + 1, "hours")
@@ -350,7 +351,7 @@ class App extends Component {
           });
         });
         this.setState({ items: scheduleResult });
-        this.props.hideLoader()
+        this.props.hideLoader();
       };
       getGameDays(matches);
     });
@@ -358,7 +359,7 @@ class App extends Component {
 
   render() {
     if (this.props.userId === 0 || !this.props.userId) {
-        return <Redirect to="/login" />;
+      return <Redirect to="/login" />;
     }
     const { groups, items, defaultTimeStart, defaultTimeEnd } = this.state;
 
@@ -396,11 +397,29 @@ class App extends Component {
               <DateHeader />
             </TimelineHeaders>
           </Timeline>
-        ) : (<div></div>)}
-        
-        <Box m={3} sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Button onClick={() => this.lessHandle(defaultTimeStart, defaultTimeEnd)} variant="contained">&#60; Previous Week</Button>
-          <Button onClick={() => this.moreHandle(defaultTimeStart, defaultTimeEnd)} variant="contained">Next Week &#x3e;</Button>
+        ) : (
+          <div></div>
+        )}
+
+        <Box
+          m={15}
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <Button
+            onClick={() => this.lessHandle(defaultTimeStart, defaultTimeEnd)}
+            variant="contained"
+          >
+            &#60; Previous Week
+          </Button>
+          <Button
+            onClick={() => this.moreHandle(defaultTimeStart, defaultTimeEnd)}
+            variant="contained"
+          >
+            Next Week &#x3e;
+          </Button>
         </Box>
       </div>
     );
@@ -413,4 +432,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {showLoader, hideLoader} )(App);
+export default connect(mapStateToProps, { showLoader, hideLoader })(App);

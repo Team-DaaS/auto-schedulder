@@ -15,7 +15,7 @@ const Import = () => {
   return (
     <Box>
       <Container>
-        <Box pt={4} pb={4}>
+        <Box pt={4} pb={4} m={10}>
           <Typography variant="h4">Import players data</Typography>
           <Typography>
             Soccer goalie defender upper 90 hat trick referee forward pitch
