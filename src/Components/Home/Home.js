@@ -13,6 +13,7 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
 import Steper from "./Steper";
+import { Link } from "react-router-dom";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 const images = [
@@ -77,10 +78,10 @@ const Home = () => {
         <Container>
           <Box mt={8} mb={8}>
             <Grid container spacing={2}>
-              <Grid item xs={9}>
+              <Grid item xs={12} md={9}>
                 <Typography
                   sx={{
-                    fontSize: "4rem",
+                    fontSize: "3rem",
                     fontWeight: "bold",
                     color: "white",
                     lineHeight: "1.2",
@@ -106,12 +107,14 @@ const Home = () => {
                   Lorem Ipsum, you need to be sure there isn't anything
                   embarrassing hidden in the middle of text.
                 </Typography>
-                <Button variant="contained" size="large">
+                <Button
+                  variant="contained"
+                  size="large"
+                  component={Link}
+                  to="/register"
+                >
                   SIGN UP NOW
                 </Button>
-              </Grid>
-              <Grid item xs={4}>
-                Dos
               </Grid>
             </Grid>
           </Box>
@@ -121,7 +124,7 @@ const Home = () => {
         <Container>
           <Box mb={8} mt={8}>
             <Grid container spacing={2}>
-              <Grid item xs={4}>
+              <Grid item xs={12} sm={4}>
                 <Card sx={{ maxWidth: 345 }}>
                   <CardMedia
                     component="img"
@@ -141,7 +144,7 @@ const Home = () => {
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={12} sm={4}>
                 <Card sx={{ maxWidth: 345 }}>
                   <CardMedia
                     component="img"
@@ -161,7 +164,7 @@ const Home = () => {
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={12} sm={4}>
                 <Card sx={{ maxWidth: 345 }}>
                   <CardMedia
                     component="img"
@@ -189,8 +192,8 @@ const Home = () => {
         <Container>
           <Box>
             <Grid container spacing={2}>
-              <Grid element xs={7}>
-                <Box sx={{ maxWidth: 600, flexGrow: 1 }}>
+              <Grid element xs={12} sm={12} md={7}>
+                <Box sx={{ maxWidth: 600, flexGrow: 1 }} mb={5}>
                   <Paper
                     square
                     elevation={0}
@@ -264,7 +267,7 @@ const Home = () => {
                   />
                 </Box>
               </Grid>
-              <Grid element xs={5}>
+              <Grid element xs={12} sm={12} md={5}>
                 <Typography variant="h4" mb={2}>
                   Your season in 3 easy steps
                 </Typography>
@@ -284,7 +287,12 @@ const Home = () => {
             >
               Sign up today and build your soccer season un a few clicks
             </Typography>
-            <Button variant="contained" sx={{ margin: "auto" }}>
+            <Button
+              variant="contained"
+              sx={{ margin: "auto" }}
+              component={Link}
+              to="/register"
+            >
               Sign up now
             </Button>
           </Box>
