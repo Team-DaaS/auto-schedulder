@@ -28,7 +28,7 @@ function App() {
     <Box>
       <NavBar />
       {routes}
-      {/* <Footer /> */}
+      <Footer />
       <Loading />
     </Box>
   );
