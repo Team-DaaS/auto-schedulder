@@ -11,9 +11,12 @@ import {
 } from "@mui/material";
 import { Alert } from "@mui/material";
 import axios from "axios";
+import { updateUserId } from "../../Redux/reducer";
+import { useDispatch } from "react-redux";
 // import { Button } from "@mui/material";
 
 const ContactForm = (props) => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [league_name, setLeagueName] = useState("");
   const [password, setPassword] = useState("");
@@ -54,7 +57,7 @@ const ContactForm = (props) => {
           axios
             .post("/api/register", { email, password, league_name })
             .then((response) => {
-              console.log(response);
+              dispatch(updateUserId(response.data.id));
               props.history.push("/import");
             })
             .catch((e) => {

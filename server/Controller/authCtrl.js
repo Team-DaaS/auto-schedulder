@@ -21,7 +21,7 @@ module.exports = {
     });
 
     req.session.user = newUser[0];
-    res.status(201).send(req.session.user);
+    res.status(201).send(newUser[0]);
   },
 
   login: async (req, res) => {
