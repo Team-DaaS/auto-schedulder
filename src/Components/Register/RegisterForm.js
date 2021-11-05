@@ -11,8 +11,13 @@ import {
 } from "@mui/material";
 import { Alert } from "@mui/material";
 import axios from "axios";
+<<<<<<< HEAD
 import { updateUserId } from "../../Redux/reducer";
 import { useDispatch } from "react-redux";
+=======
+import { useDispatch } from "react-redux";
+import { updateUserId } from "../../Redux/reducer";
+>>>>>>> main
 // import { Button } from "@mui/material";
 
 const ContactForm = (props) => {
@@ -31,6 +36,7 @@ const ContactForm = (props) => {
   const handleLeagueNameChange = (e) => setLeagueName(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
   const handlePasswordConfChange = (e) => setPasswordConf(e.target.value);
+  const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -57,10 +63,16 @@ const ContactForm = (props) => {
           axios
             .post("/api/register", { email, password, league_name })
             .then((response) => {
+<<<<<<< HEAD
+=======
+              console.log(response);
+>>>>>>> main
               dispatch(updateUserId(response.data.id));
               props.history.push("/import");
             })
+
             .catch((e) => {
+              console.log("err");
               setUserError(true);
             });
         }
