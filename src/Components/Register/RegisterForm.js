@@ -13,7 +13,7 @@ import { Alert } from "@mui/material";
 import axios from "axios";
 // import { Button } from "@mui/material";
 
-const ContactForm = () => {
+const ContactForm = (props) => {
   const [email, setEmail] = useState("");
   const [league_name, setLeagueName] = useState("");
   const [password, setPassword] = useState("");
@@ -55,6 +55,7 @@ const ContactForm = () => {
             .post("/api/register", { email, password, league_name })
             .then((response) => {
               console.log(response);
+              props.history.push("/import");
             })
             .catch((e) => {
               setUserError(true);
