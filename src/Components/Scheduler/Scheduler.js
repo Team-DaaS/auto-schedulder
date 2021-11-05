@@ -283,7 +283,7 @@ class App extends Component {
           scheduleResult.push({
             id: index,
             group: el.group,
-            title: `${el.title} - ${el.group} - Match Weight: ${el.totalWeight}`,
+            title: `${el.title}`,
             dayPlay: el.dayPlay,
             timeSlot: el.timeSlot,
             start: moment(
@@ -357,9 +357,9 @@ class App extends Component {
   }
 
   render() {
-    // if (this.props.userId === 0 || !this.props.userId) {
-    //     return <Redirect to="/login" />;
-    // }
+    if (this.props.userId === 0 || !this.props.userId) {
+        return <Redirect to="/login" />;
+    }
     const { groups, items, defaultTimeStart, defaultTimeEnd } = this.state;
 
     return (
