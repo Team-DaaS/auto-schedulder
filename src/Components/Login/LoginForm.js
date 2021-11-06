@@ -69,7 +69,7 @@ const LoginForm = (props) => {
 
   return (
     <form noValidate onSubmit={handleSubmit}>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} mb={20}>
         <Grid item xs={12}>
           <Typography color="textPrimary" sx={{ mb: 1 }} variant="subtitle2">
             Email *

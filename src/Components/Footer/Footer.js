@@ -5,8 +5,13 @@ import { ScheduleRounded } from "@material-ui/icons";
 
 export const Footer = () => {
   return (
-    <Box sx={{ backgroundColor: "#1976d2" }}>
-      <Container maxWidth="lg">
+    <Box
+      sx={{
+        backgroundColor: "#1976d2",
+        position: "relative",
+      }}
+    >
+      <Container maxWidth="lg" sx={{ position: "relative" }}>
         <Box
           sx={{
             display: "flex",
